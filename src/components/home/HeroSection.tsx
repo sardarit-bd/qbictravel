@@ -36,7 +36,7 @@ function SoftCloud({ className }: { className?: string }) {
 }
 
 export function HeroSection({
-  travelerImage = "/images/hero-traveler.png",
+  travelerImage = "/images/hero/hero-traveler.png",
 }: HeroSectionProps) {
   return (
     <section
