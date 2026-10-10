@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Home, Compass } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
