@@ -23,7 +23,7 @@ export default function NotFound() {
         {/* Prominent Not Found Illustration Asset (natural 3:2 ratio preserved) */}
         <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl mb-6 sm:mb-8">
           <Image
-            src="/images/not-found.png"
+            src="/images/illustrations/not-found.png"
             alt="404 Page Not Found illustration"
             width={640}
             height={426}
