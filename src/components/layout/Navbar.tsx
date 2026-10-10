@@ -49,7 +49,7 @@ export function Navbar() {
           aria-label="QbicTravel Home"
         >
           <Image
-            src="/images/qbic-logo-2.png"
+            src="/images/brand/qbic-logo-2.png"
             alt="QbicTravel Logo"
             width={150}
             height={80}

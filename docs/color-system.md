@@ -4,7 +4,7 @@
 
 > [!IMPORTANT]
 > **BRAND IDENTITY STATUS: CLIENT-ALIGNED PINK / MAGENTA THEME**
-> The QbicTravel design system is unified around the client's official brand identity and supplied **BIC TRAVEL** logo asset (`docs/qbic-logo-airborne.png` deployed to `public/images/qbic-logo.png`):
+> The QbicTravel design system is unified around the client's official brand identity and supplied **BIC TRAVEL** logo asset (`docs/qbic-logo-airborne.png` deployed to `public/images/brand/qbic-logo-2.png`):
 > - **Brand Pink / Primary**: `#EC407A` (Core interactive brand color, primary CTA, active navigation indicators)
 > - **Deep Pink / Hover**: `#DB2777` (Interactive button hover states and deep magenta gradients)
 > - **Light Pink / Accent**: `#F472B6` (Accent highlights, subtle borders, and gradient stops)
@@ -19,7 +19,7 @@
 
 ## 1. Logo Asset & Brand Naming Analysis
 
-- **Asset Path**: `public/images/qbic-logo.png` (sourced from `docs/qbic-logo-airborne.png`, 2172×724px, 3:1 aspect ratio).
+- **Asset Path**: `public/images/brand/qbic-logo-2.png` and master emblem `public/images/brand/qbic-icon.png` (sourced from client brand identity).
 - **Emblem Composition**:
   - The logo mark features a stylized location pin that forms the letter **"Q"**, enclosing illustrated mountain peaks and a soaring passenger airplane.
   - The text reads **"BIC"** set in Dark Navy (`#0F172A`) followed by **"TRAVEL"** set in Brand Pink (`#EC407A`).
