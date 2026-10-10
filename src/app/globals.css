@@ -11,6 +11,20 @@
   --font-heading: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
   --font-mono: var(--font-geist-mono, ui-monospace, monospace);
 
+  /* Brand Specific Primitives: Client Pink/Magenta Identity */
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-pink-deep: var(--brand-pink-deep);
+  --color-brand-pink-light: var(--brand-pink-light);
+  --color-brand-pink-soft: var(--brand-pink-soft);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-dark: var(--brand-navy-dark);
+
+  /* CTA Tokens */
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
+  --color-cta-hover: var(--cta-hover);
+  --color-cta-active: var(--cta-active);
+
   /* Brand Semantic Tokens */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
@@ -19,7 +33,7 @@
   --color-primary-subtle: var(--primary-subtle);
   --color-primary-subtle-foreground: var(--primary-subtle-foreground);
 
-  /* Brand Scale Tokens (Placeholder pink scale) */
+  /* Brand Scale Tokens */
   --color-primary-50: var(--primary-50);
   --color-primary-100: var(--primary-100);
   --color-primary-200: var(--primary-200);
@@ -90,53 +104,71 @@
 
 :root {
   /* ==========================================================================
-     BRAND COLOR PALETTE: PINKISH DIRECTION (PLACEHOLDER - PENDING CLIENT APPROVAL)
+     BRAND PRIMITIVES & CLIENT PINK/MAGENTA IDENTITY
      --------------------------------------------------------------------------
-     The client requested a modern pinkish brand direction without specifying
-     exact HEX/OKLCH codes. The values below establish a 50-950 scale for layout
-     and token plumbing.
-     TO REPLACE: Update the 50-950 scale values or hue angle below once approved.
+     Derived directly from client logo (docs/qbic-logo-airborne.png) & brief:
+     - Brand Pink / Primary:      #EC407A (Core Brand CTA & Magenta Accent)
+     - Deep Pink / Hover:         #DB2777 (Interactive Hover State)
+     - Light Pink / Accent:       #F472B6 (Secondary Highlight & Gradients)
+     - Soft Pink / Subtle:        #FCE7F3 (Subtle Surfaces & Badges)
+     - Dark Navy / Primary Text:  #0F172A (Text Hierarchy & Dark Canvas)
+     - Dark Navy Deep:            #0A0F1D (Hero Gradient Deep Base)
+     - White / Main Canvas:       #FFFFFF
      ========================================================================== */
-  --primary-50: oklch(0.975 0.02 355);
-  --primary-100: oklch(0.94 0.045 355);
-  --primary-200: oklch(0.88 0.08 355);
-  --primary-300: oklch(0.80 0.125 355);
-  --primary-400: oklch(0.70 0.175 355);
-  --primary-500: oklch(0.62 0.215 355);
-  --primary-600: oklch(0.54 0.22 355);
-  --primary-700: oklch(0.46 0.185 355);
-  --primary-800: oklch(0.38 0.145 355);
-  --primary-900: oklch(0.31 0.105 355);
-  --primary-950: oklch(0.20 0.06 355);
+  --brand-pink: #EC407A;
+  --brand-pink-deep: #DB2777;
+  --brand-pink-light: #F472B6;
+  --brand-pink-soft: #FCE7F3;
+  --brand-navy: #0F172A;
+  --brand-navy-dark: #0A0F1D;
+
+  /* CTA Semantic Tokens */
+  --cta: var(--brand-pink);
+  --cta-foreground: #FFFFFF;
+  --cta-hover: var(--brand-pink-deep);
+  --cta-active: #BE185D;
+
+  /* Brand Primary Scale (Pink/Magenta 50–950 Scale centered around #EC407A at 500) */
+  --primary-50: #FDF2F8;
+  --primary-100: #FCE7F3;
+  --primary-200: #FBCFE8;
+  --primary-300: #F9A8D4;
+  --primary-400: #F472B6;
+  --primary-500: #EC407A;
+  --primary-600: #DB2777;
+  --primary-700: #BE185D;
+  --primary-800: #9D174D;
+  --primary-900: #831843;
+  --primary-950: #500724;
 
   /* Semantic Brand Roles (Light Mode) */
-  --primary: var(--primary-600);
-  --primary-foreground: oklch(0.99 0 0);
-  --primary-hover: var(--primary-700);
-  --primary-active: var(--primary-800);
-  --primary-subtle: var(--primary-50);
-  --primary-subtle-foreground: var(--primary-800);
+  --primary: var(--brand-pink);
+  --primary-foreground: #FFFFFF;
+  --primary-hover: var(--brand-pink-deep);
+  --primary-active: #BE185D;
+  --primary-subtle: var(--brand-pink-soft);
+  --primary-subtle-foreground: #BE185D;
 
   /* Neutrals & Surfaces */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --background: #FFFFFF;
+  --foreground: var(--brand-navy);
+  --card: #FFFFFF;
+  --card-foreground: var(--brand-navy);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--brand-navy);
 
   /* Secondary & Muted */
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --secondary: #F1F5F9;
+  --secondary-foreground: var(--brand-navy);
+  --muted: #F8FAFC;
+  --muted-foreground: #64748B;
+  --accent: #FDF2F8;
+  --accent-foreground: var(--brand-navy);
 
   /* UI Chrome */
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: var(--primary-500);
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: var(--brand-pink);
 
   /* Semantic Feedback Roles (Light Mode) */
   --destructive: oklch(0.577 0.245 27.325);
@@ -149,53 +181,67 @@
   --info-foreground: oklch(0.99 0 0);
 
   /* Charts */
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-1: #EC407A;
+  --chart-2: #0F172A;
+  --chart-3: #F472B6;
+  --chart-4: #64748B;
+  --chart-5: #DB2777;
 
   /* Radii & Sidebar Defaults */
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: var(--primary-600);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: var(--primary-500);
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: var(--brand-navy);
+  --sidebar-primary: var(--brand-pink);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #FDF2F8;
+  --sidebar-accent-foreground: var(--brand-navy);
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: var(--brand-pink);
 }
 
 .dark {
+  /* Brand Primitives (Dark Mode) */
+  --brand-pink: #EC407A;
+  --brand-pink-deep: #DB2777;
+  --brand-pink-light: #F472B6;
+  --brand-pink-soft: #FCE7F3;
+  --brand-navy: #0F172A;
+  --brand-navy-dark: #0A0F1D;
+
+  /* CTA Semantic Tokens */
+  --cta: var(--brand-pink-light);
+  --cta-foreground: var(--brand-navy);
+  --cta-hover: #F9A8D4;
+  --cta-active: #FBCFE8;
+
   /* Semantic Brand Roles (Dark Mode) */
-  --primary: var(--primary-400);
-  --primary-foreground: oklch(0.15 0.03 355);
-  --primary-hover: var(--primary-300);
-  --primary-active: var(--primary-200);
-  --primary-subtle: oklch(0.24 0.06 355);
-  --primary-subtle-foreground: var(--primary-200);
+  --primary: var(--brand-pink-light);
+  --primary-foreground: var(--brand-navy);
+  --primary-hover: #F9A8D4;
+  --primary-active: #FBCFE8;
+  --primary-subtle: #831843;
+  --primary-subtle-foreground: #FBCFE8;
 
   /* Neutrals & Surfaces */
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #1E293B;
+  --card-foreground: #F8FAFC;
+  --popover: #1E293B;
+  --popover-foreground: #F8FAFC;
 
   /* Secondary & Muted */
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --secondary: #1E293B;
+  --secondary-foreground: #F8FAFC;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --accent: #334155;
+  --accent-foreground: #F8FAFC;
 
   /* UI Chrome */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: var(--primary-400);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: var(--brand-pink-light);
 
   /* Semantic Feedback Roles (Dark Mode) */
   --destructive: oklch(0.65 0.22 25);
@@ -208,21 +254,21 @@
   --info-foreground: oklch(0.12 0.03 240);
 
   /* Charts */
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --chart-1: #F472B6;
+  --chart-2: #F8FAFC;
+  --chart-3: #EC407A;
+  --chart-4: #94A3B8;
+  --chart-5: #DB2777;
 
   /* Sidebar */
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: var(--primary-400);
-  --sidebar-primary-foreground: oklch(0.15 0.03 355);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--primary-400);
+  --sidebar: #1E293B;
+  --sidebar-foreground: #F8FAFC;
+  --sidebar-primary: var(--brand-pink-light);
+  --sidebar-primary-foreground: var(--brand-navy);
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: var(--brand-pink-light);
 }
 
 /* ==========================================================================
@@ -299,6 +345,10 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+@utility font-script {
+  font-family: 'Caveat', 'Playfair Display', 'Brush Script MT', 'Baskerville', cursive, serif;
 }
 
 @utility container-page {

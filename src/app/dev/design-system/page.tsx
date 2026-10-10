@@ -66,14 +66,14 @@ export default function DesignSystemPreviewPage() {
     <div className="min-h-screen bg-background text-foreground py-12 px-6 sm:px-12">
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Banner */}
-        <div className="p-4 rounded-xl border border-warning/40 bg-warning/10 text-foreground space-y-1">
-          <div className="flex items-center gap-2 font-semibold text-sm">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-warning" />
-            INTERNAL DEVELOPMENT PREVIEW — TYPOGRAPHY & BRAND ASSETS PENDING APPROVAL
+        <div className="p-4 rounded-xl border border-primary/30 bg-primary-subtle text-foreground space-y-1">
+          <div className="flex items-center gap-2 font-semibold text-sm text-primary-subtle-foreground">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-primary" />
+            INTERNAL DEVELOPMENT PREVIEW — DESIGN SYSTEM FOUNDATION &amp; BRAND TOKENS
           </div>
           <p className="text-xs text-muted-foreground">
-            This internal preview validates the responsive typographic hierarchy, 4px-based spacing scale,
-            border radius geometry, and elevation depths. Typography is set to Geist Sans as a high-performance placeholder.
+            This preview validates the responsive typographic hierarchy, 4px-based spacing scale, border radius geometry,
+            elevation depths, and synergy with the client&apos;s Pink &amp; Magenta brand tokens.
           </p>
         </div>
 
@@ -338,7 +338,7 @@ export default function DesignSystemPreviewPage() {
               6. UI Density & Color Synergy Evaluation
             </h2>
             <p className="type-body-sm text-muted-foreground">
-              Validating how typography, spacing, radius, and placeholder pink semantic tokens interact together.
+              Validating how typography, spacing, radius, and centralized semantic tokens interact together.
             </p>
           </div>
 
