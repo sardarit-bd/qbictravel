@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 export const metadata = {
   title: "Color System Playground (Internal Dev)",
   description:
-    "Internal testing playground for semantic color tokens and pending pink brand palette.",
+    "Internal testing playground for centralized semantic color tokens and client pink/magenta brand identity.",
   robots: {
     index: false,
     follow: false,
@@ -13,18 +13,27 @@ export const metadata = {
 };
 
 export default function ColorSystemPlaygroundPage() {
+  const brandCore = [
+    { name: "Brand Pink / Primary", hex: "#EC407A", role: "Primary Brand / Active State / CTA", bg: "bg-brand-pink", text: "text-white" },
+    { name: "Deep Pink / Hover", hex: "#DB2777", role: "Hover State / Deep Contrast", bg: "bg-brand-pink-deep", text: "text-white" },
+    { name: "Light Pink / Accent", hex: "#F472B6", role: "Accent Highlight / Gradients", bg: "bg-brand-pink-light", text: "text-white" },
+    { name: "Soft Pink / Subtle", hex: "#FCE7F3", role: "Subtle Surfaces / Badges", bg: "bg-brand-pink-soft", text: "text-brand-navy" },
+    { name: "Dark Navy / Primary Text", hex: "#0F172A", role: "Primary Text / Hero Canvas", bg: "bg-brand-navy", text: "text-white" },
+    { name: "White / Main Background", hex: "#FFFFFF", role: "Main Background / Pure Canvas", bg: "bg-white", text: "text-brand-navy", border: "border-border" },
+  ];
+
   const brandScales = [
-    { label: "50", bg: "bg-primary-50", text: "text-primary-950" },
-    { label: "100", bg: "bg-primary-100", text: "text-primary-950" },
-    { label: "200", bg: "bg-primary-200", text: "text-primary-950" },
-    { label: "300", bg: "bg-primary-300", text: "text-primary-950" },
-    { label: "400", bg: "bg-primary-400", text: "text-primary-950" },
-    { label: "500", bg: "bg-primary-500", text: "text-white" },
-    { label: "600 (Primary Base)", bg: "bg-primary-600", text: "text-white" },
-    { label: "700", bg: "bg-primary-700", text: "text-white" },
-    { label: "800", bg: "bg-primary-800", text: "text-white" },
-    { label: "900", bg: "bg-primary-900", text: "text-white" },
-    { label: "950", bg: "bg-primary-950", text: "text-white" },
+    { label: "50", hex: "#FDF2F8", bg: "bg-primary-50", text: "text-primary-950" },
+    { label: "100", hex: "#FCE7F3", bg: "bg-primary-100", text: "text-primary-950" },
+    { label: "200", hex: "#FBCFE8", bg: "bg-primary-200", text: "text-primary-950" },
+    { label: "300", hex: "#F9A8D4", bg: "bg-primary-300", text: "text-primary-950" },
+    { label: "400", hex: "#F472B6", bg: "bg-primary-400", text: "text-primary-950" },
+    { label: "500 (Primary Base)", hex: "#EC407A", bg: "bg-primary-500", text: "text-white" },
+    { label: "600", hex: "#DB2777", bg: "bg-primary-600", text: "text-white" },
+    { label: "700", hex: "#BE185D", bg: "bg-primary-700", text: "text-white" },
+    { label: "800", hex: "#9D174D", bg: "bg-primary-800", text: "text-white" },
+    { label: "900", hex: "#831843", bg: "bg-primary-900", text: "text-white" },
+    { label: "950", hex: "#500724", bg: "bg-primary-950", text: "text-white" },
   ];
 
   const semanticSwatches = [
@@ -33,6 +42,13 @@ export default function ColorSystemPlaygroundPage() {
       token: "--primary",
       bgClass: "bg-primary",
       textClass: "text-primary-foreground",
+      borderClass: "border-transparent",
+    },
+    {
+      name: "Primary Hover",
+      token: "--primary-hover",
+      bgClass: "bg-primary-hover",
+      textClass: "text-white",
       borderClass: "border-transparent",
     },
     {
@@ -110,16 +126,16 @@ export default function ColorSystemPlaygroundPage() {
   return (
     <div className="min-h-screen bg-background text-foreground py-12 px-6 sm:px-12">
       <div className="max-w-6xl mx-auto space-y-12">
-        {/* Development Banner */}
-        <div className="p-4 rounded-xl border border-warning/40 bg-warning/10 text-foreground space-y-1">
-          <div className="flex items-center gap-2 font-semibold text-sm">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-warning" />
-            INTERNAL DEVELOPMENT PLAYGROUND — BRAND COLOR PENDING CLIENT APPROVAL
+        {/* Brand Identity Banner */}
+        <div className="p-4 rounded-xl border border-primary/30 bg-primary-subtle text-foreground space-y-1">
+          <div className="flex items-center gap-2 font-semibold text-sm text-primary-subtle-foreground">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-primary" />
+            CLIENT BRAND IDENTITY — CENTRALIZED PINK &amp; MAGENTA PALETTE
           </div>
           <p className="text-xs text-muted-foreground">
-            This page is isolated from actual product routes. All pink shades are
-            development placeholders configured via CSS custom properties in{" "}
-            <code className="text-foreground font-mono">globals.css</code>. No brand colors are hardcoded.
+            This design system is anchored in the client&apos;s BIC TRAVEL logo brand identity, featuring Brand Pink (#EC407A),
+            Deep Pink (#DB2777), Light Pink (#F472B6), Soft Pink (#FCE7F3), and Dark Navy (#0F172A). All UI components consume
+            centralized semantic tokens configured in <code className="text-foreground font-mono">globals.css</code>.
           </p>
         </div>
 
@@ -133,14 +149,40 @@ export default function ColorSystemPlaygroundPage() {
           </p>
         </div>
 
-        {/* Section 1: Brand Scale */}
+        {/* Section 1: Core Brand Primitives */}
         <section className="space-y-4">
           <div className="border-b border-border pb-2">
             <h2 className="text-lg font-semibold text-foreground">
-              1. Brand Palette Scale (Placeholder Pink)
+              1. Core Brand Primitives
             </h2>
             <p className="text-xs text-muted-foreground">
-              Generated in OKLCH (Hue 355). Replaceable via single CSS scale configuration in <code className="font-mono">globals.css</code>.
+              Derived directly from the client&apos;s BIC TRAVEL logo asset (<code className="font-mono">docs/qbic-logo-airborne.png</code>).
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {brandCore.map((item) => (
+              <div
+                key={item.name}
+                className={`p-4 rounded-xl border ${item.border || "border-border/40"} ${item.bg} ${item.text} flex flex-col justify-between h-28 shadow-xs`}
+              >
+                <div>
+                  <div className="font-bold text-sm">{item.name}</div>
+                  <div className="text-[11px] opacity-80">{item.role}</div>
+                </div>
+                <div className="font-mono text-xs opacity-90">{item.hex}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Section 2: Primary Brand Scale (Pink / Magenta 50–950) */}
+        <section className="space-y-4">
+          <div className="border-b border-border pb-2">
+            <h2 className="text-lg font-semibold text-foreground">
+              2. Primary Brand Scale (Pink / Magenta 50–950)
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Harmonious scale centered around Brand Pink #EC407A at step 500.
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-2">
@@ -151,18 +193,18 @@ export default function ColorSystemPlaygroundPage() {
               >
                 <span>{scale.label}</span>
                 <span className="font-mono text-[10px] opacity-80">
-                  {scale.bg.replace("bg-", "")}
+                  {scale.hex}
                 </span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Section 2: Semantic Color Swatches */}
+        {/* Section 3: Semantic Color Swatches */}
         <section className="space-y-4">
           <div className="border-b border-border pb-2">
             <h2 className="text-lg font-semibold text-foreground">
-              2. Semantic Token Swatches
+              3. Semantic Token Swatches
             </h2>
             <p className="text-xs text-muted-foreground">
               Tokens consumed by components. Swatches show foreground text against each surface.
@@ -184,11 +226,11 @@ export default function ColorSystemPlaygroundPage() {
           </div>
         </section>
 
-        {/* Section 3: Component Demonstrations */}
+        {/* Section 4: Component Demonstrations */}
         <section className="space-y-6">
           <div className="border-b border-border pb-2">
             <h2 className="text-lg font-semibold text-foreground">
-              3. Component Demonstrations
+              4. Component Demonstrations
             </h2>
             <p className="text-xs text-muted-foreground">
               Verifies that components consume semantic tokens rather than raw colors.
@@ -198,10 +240,11 @@ export default function ColorSystemPlaygroundPage() {
           {/* Buttons */}
           <div className="p-6 rounded-xl border border-border bg-card text-card-foreground space-y-4">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              Button Variants
+              Button Variants (Including New Marketing CTA)
             </h3>
             <div className="flex flex-wrap gap-3 items-center">
               <Button variant="default">Primary Button</Button>
+              <Button variant="cta">CTA Button</Button>
               <Button variant="secondary">Secondary Button</Button>
               <Button variant="outline">Outline Button</Button>
               <Button variant="ghost">Ghost Button</Button>

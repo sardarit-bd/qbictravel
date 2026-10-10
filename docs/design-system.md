@@ -30,15 +30,18 @@ The QbicTravel type scale is restrained and purposeful, tailored specifically fo
 | **Body Small** | `.type-body-sm` | `14px (0.875rem)` / `1.5` | `14px (0.875rem)` / `1.5` | 400 (Regular) | Supporting text, card descriptions, badges, tooltips |
 | **Caption** | `.type-caption` | `12px (0.75rem)` / `1.5` | `12px (0.75rem)` / `1.5` | 400 (Regular) | Timestamps, terms & conditions, photo attributions |
 | **Overline** | `.type-overline` | `12px (0.75rem)` / `1.5` | `12px (0.75rem)` / `1.5` | 600 (SemiBold) | Eyebrow badges, categories (UPPERCASE, tracked out) |
-| **Button** | `text-sm font-medium` | `14px (0.875rem)` / `1.0` | `14px (0.875rem)` / `1.0` | 500 (Medium) | Interactive controls and CTAs |
+| **Editorial Script** | `.font-script` | Fluid / Display scale | Fluid / Display scale | 400–700 | Cursive headline accents ("The World", "For Booking") |
+| **Primary Button** | `Button variant="default"` | `14px (0.875rem)` / `1.0` | `14px (0.875rem)` / `1.0` | 500 (Medium) | Standard application actions (Brand Pink `#EC407A`) |
+| **CTA Button** | `Button variant="cta"` | `14px–16px` / `1.0` | `14px` / `1.0` | 800 (ExtraBold) | High-conversion marketing CTAs (Brand Pink `#EC407A` with deep hover) |
 
 ---
 
-## 2. Temporary Font Choice & Replacement Process
+## 2. Temporary Font Choice & Editorial Script Typography
 
 ### Current Configuration
 - **Sans font**: `Geist` imported via `next/font/google` in `src/app/layout.tsx`.
 - **Mono font**: `Geist_Mono` imported via `next/font/google` in `src/app/layout.tsx`.
+- **Script font utility**: `@utility font-script` defined in `globals.css` using `'Caveat', 'Playfair Display', 'Brush Script MT', 'Baskerville', cursive, serif`.
 - **CSS variable binding**: `--font-sans: var(--font-geist-sans);` in `src/app/globals.css`.
 
 ### How to Replace the Font When the Client Approves Brand Typography:
