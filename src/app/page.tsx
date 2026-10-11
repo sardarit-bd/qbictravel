@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { HeroSection, EasyStepsSection } from "@/components/home";
+import { Navbar } from "@/components/layout/Navbar";
+import {
+  HeroSection,
+  EasyStepsSection,
+  EditorialTravelSection,
+} from "@/components/home";
 
 export const metadata: Metadata = {
   title: "QbicTravel — Explore The World",
@@ -9,14 +14,18 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center justify-start">
-      {/* Hero Section Container */}
-      <div className="w-full max-w-[1440px] mx-auto ">
-        <HeroSection />
-      </div>
+    <main className="min-h-screen bg-brand-navy flex flex-col items-center justify-start relative w-full m-0 p-0">
+      {/* Sticky Navbar (Fixed to top, stays visible and readable throughout full page scroll) */}
+      <Navbar />
+
+      {/* Hero Section Container (Full-bleed edge-to-edge across 1440px, 1920px, and ultrawide displays) */}
+      <HeroSection />
 
       {/* Easy Steps For Booking Section */}
       <EasyStepsSection />
+
+      {/* Editorial Travel Section (Left side: handwritten headline, pink strokes, flight path, Santorini card) */}
+      <EditorialTravelSection />
     </main>
   );
 }

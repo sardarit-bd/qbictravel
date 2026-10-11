@@ -26,6 +26,17 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  // Monitor scroll for sticky navbar background and styling
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close menus on Escape key
   React.useEffect(() => {
@@ -40,27 +51,33 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="relative z-30 w-full px-5 sm:px-8 md:px-12 pt-5 md:pt-7">
-      <div className="flex items-center justify-between">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 w-full transition-colors duration-300 ${
+        isScrolled
+          ? "bg-brand-navy/95 backdrop-blur-md shadow-lg border-b border-white/10"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="max-w-[1440px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16 py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between">
         {/* Left Side: Brand Logo (Official Client Logo Asset) */}
         <Link
           href="/"
-          className="group flex items-center px-3 py-1.5 transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="group flex items-center px-2 py-1 transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0"
           aria-label="QbicTravel Home"
         >
           <Image
             src="/images/brand/qbic-logo-2.png"
             alt="QbicTravel Logo"
-            width={150}
-            height={80}
+            width={200}
+            height={90}
             priority
-            className="h-15 sm:h-15 w-auto object-contain"
+            className="h-12 sm:h-14 w-auto object-contain"
           />
         </Link>
 
-        {/* Center: Desktop Navigation */}
+        {/* Desktop Navigation (Visible on Desktop 1024px+ and 1440px+) */}
         <nav
-          className="hidden md:flex items-center gap-6 lg:gap-8"
+          className="hidden min-[992px]:flex items-center gap-5 lg:gap-6 xl:gap-8 2xl:gap-10"
           aria-label="Primary Navigation"
         >
           {NAV_ITEMS.map((item) => {
@@ -69,7 +86,7 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="relative text-sm font-semibold text-primary py-1 transition-colors hover:text-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  className="relative text-[20px] font-semibold text-primary py-1 transition-colors hover:text-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded drop-shadow-sm"
                 >
                   {item.label}
                   {/* Subtle active underline indicator matching reference */}
@@ -82,7 +99,7 @@ export function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-white/85 hover:text-white py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                className="text-[18px] font-medium text-white/95 hover:text-white py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
               >
                 {item.label}
               </Link>
@@ -90,13 +107,17 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right Side: Search and Menu Actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Mobile & Tablet Actions: Search and Hamburger Menu (Hidden on Desktop 1024px+) */}
+        <div className="flex min-[992px]:hidden items-center gap-2 sm:gap-3 shrink-0">
           {/* Search Button */}
           <button
             type="button"
             onClick={() => setIsSearchOpen(true)}
-            className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
+              isScrolled
+                ? "bg-white/10 hover:bg-white/20 text-white"
+                : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
+            }`}
             aria-label="Open search dialog"
           >
             <Search className="w-4 h-4" />
@@ -106,7 +127,11 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
+              isScrolled
+                ? "bg-white/10 hover:bg-white/20 text-white"
+                : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
+            }`}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >
@@ -121,7 +146,7 @@ export function Navbar() {
 
       {/* Mobile Drawer Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 rounded-2xl bg-brand-navy/95 backdrop-blur-md border border-white/15 p-5 shadow-2xl text-white animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="min-[992px]:hidden mt-4 rounded-2xl bg-brand-navy/95 backdrop-blur-md border border-white/15 p-5 shadow-2xl text-white animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-white/50 px-2">
               Menu Navigation
