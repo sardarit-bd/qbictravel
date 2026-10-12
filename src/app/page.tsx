@@ -4,6 +4,7 @@ import {
   HeroSection,
   EasyStepsSection,
   TrendingDestinationSection,
+  TravelPricingSection,
 } from "@/components/home";
 
 export const metadata: Metadata = {
@@ -26,6 +27,9 @@ export default function Home() {
 
       {/* Trending Destinations Editorial Collage Section */}
       <TrendingDestinationSection />
+
+      {/* Travel Pricing Section ("Price For Travel The World") */}
+      <TravelPricingSection />
     </main>
   );
 }
