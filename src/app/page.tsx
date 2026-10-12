@@ -3,7 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import {
   HeroSection,
   EasyStepsSection,
-  EditorialTravelSection,
+  TrendingDestinationSection,
 } from "@/components/home";
 
 export const metadata: Metadata = {
@@ -24,8 +24,8 @@ export default function Home() {
       {/* Easy Steps For Booking Section */}
       <EasyStepsSection />
 
-      {/* Editorial Travel Section (Left side: handwritten headline, pink strokes, flight path, Santorini card) */}
-      <EditorialTravelSection />
+      {/* Trending Destinations Editorial Collage Section */}
+      <TrendingDestinationSection />
     </main>
   );
 }
