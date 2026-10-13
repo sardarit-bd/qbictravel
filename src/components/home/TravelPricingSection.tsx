@@ -12,8 +12,8 @@ import { Calendar, Moon, Building2, Utensils, Plane } from "lucide-react";
 export interface TravelPricingAssetConfig {
   background: {
     mountainPanorama: string;
-    hotAirBalloon: string;
-    travelers: string;
+    hotAirBalloon?: string;
+    travelers?: string;
   };
   packages: {
     basic: string;
@@ -25,8 +25,6 @@ export interface TravelPricingAssetConfig {
 export const DEFAULT_PRICING_ASSETS: TravelPricingAssetConfig = {
   background: {
     mountainPanorama: "/images/pricing/mountain-panorama.jpg",
-    hotAirBalloon: "/images/pricing/hot-air-balloon.png",
-    travelers: "/images/pricing/travelers.png",
   },
   packages: {
     basic: "/images/pricing/basic-package.jpg",
@@ -57,10 +55,10 @@ export interface TravelPricingSectionProps {
 }
 
 /**
- * Feature Icon renderer supporting consistent warm-amber travel icons
+ * Feature Icon renderer consuming brand primary tokens
  */
 function FeatureIcon({ type }: { type: FeatureIconType }) {
-  const iconProps = { className: "w-3.5 h-3.5 text-amber-500 shrink-0 stroke-[2.2]" };
+  const iconProps = { className: "w-2.5 h-2.5 text-primary shrink-0 stroke-[2.2]" };
   switch (type) {
     case "days":
       return <Calendar {...iconProps} />;
@@ -81,16 +79,14 @@ function FeatureIcon({ type }: { type: FeatureIconType }) {
  * Pixel-accurate implementation of the "Price For Travel The World" section:
  * - Pale cyan/ice-blue ambient background (#EEF7FB)
  * - Torn-paper top edge with soft drop shadow
- * - Centered two-tone heading: "Price For" (orange script) + "Travel The World" (bold dark navy)
+ * - Centered two-tone heading: "Price For" (brand pink script) + "Travel The World" (bold dark navy)
  * - Supporting descriptive subtitle
  * - Three tall, capsule-rounded white pricing cards (rounded-[38px] to rounded-[42px])
  * - Landscape header images in capsule frames
  * - Clear package name & price layout
- * - Five compact feature rows with amber icons
- * - Lime-green pill-shaped "Book Now" CTA buttons
+ * - Five compact feature rows with brand pink accent icons
+ * - Pill-shaped "Book Now" CTA buttons aligned with dynamic brand primary tokens
  * - Scenic mountain background illustration layering behind cards
- * - Red/pink hot-air balloon entering from lower-left edge
- * - Two backpacker travelers sitting on a ledge on lower-right edge
  * - Clean bottom wavy transition
  */
 export function TravelPricingSection({
@@ -170,7 +166,7 @@ export function TravelPricingSection({
       </div>
 
       {/* =========================================================================
-          SCENIC BACKGROUND LAYERING (Mountains, Balloon, Travelers, Ambient Glow)
+          SCENIC BACKGROUND LAYERING (Mountains, Ambient Glow)
           ========================================================================= */}
 
       {/* Ambient white halo glow behind central cards */}
@@ -197,34 +193,6 @@ export function TravelPricingSection({
         />
       </div>
 
-      {/* Partially visible hot-air balloon entering from lower-left edge */}
-      <div
-        className="absolute left-[-15px] sm:left-2 md:left-6 lg:left-12 bottom-36 sm:bottom-44 md:bottom-52 w-20 sm:w-28 md:w-36 lg:w-44 aspect-square pointer-events-none select-none z-10 filter drop-shadow-[0_8px_16px_rgba(15,23,42,0.12)] transition-transform duration-700 hover:-translate-y-2"
-        aria-hidden="true"
-      >
-        <Image
-          src={assets.background.hotAirBalloon}
-          alt=""
-          fill
-          sizes="(max-width: 640px) 80px, 176px"
-          className="object-contain"
-        />
-      </div>
-
-      {/* Two backpacker travelers sitting on a ledge near lower-right edge */}
-      <div
-        className="absolute right-[-10px] sm:right-4 md:right-8 lg:right-16 bottom-8 sm:bottom-12 md:bottom-14 w-28 sm:w-36 md:w-48 lg:w-56 aspect-square pointer-events-none select-none z-10 filter drop-shadow-[0_8px_20px_rgba(15,23,42,0.18)]"
-        aria-hidden="true"
-      >
-        <Image
-          src={assets.background.travelers}
-          alt=""
-          fill
-          sizes="(max-width: 640px) 112px, 224px"
-          className="object-contain"
-        />
-      </div>
-
       {/* Bottom organic wavy transition curve */}
       <div
         className="absolute bottom-0 inset-x-0 h-8 sm:h-12 md:h-16 overflow-hidden pointer-events-none select-none z-20"
@@ -246,15 +214,15 @@ export function TravelPricingSection({
         {/* Centered Heading */}
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="flex items-center justify-center flex-wrap gap-x-2.5 gap-y-1">
-            <span className="font-script text-amber-500 text-3xl sm:text-4xl md:text-[2.75rem] font-bold leading-tight -rotate-1 select-none">
+            <span className="font-script text-primary text-3xl sm:text-4xl md:text-[2.75rem] font-bold leading-tight -rotate-1 select-none">
               Price For
             </span>
-            <span className="font-sans font-extrabold text-slate-900 text-2xl sm:text-3xl md:text-[2.35rem] tracking-tight leading-tight">
+            <span className="font-sans font-extrabold text-foreground text-2xl sm:text-3xl md:text-[2.35rem] tracking-tight leading-tight">
               Travel The World
             </span>
           </h2>
 
-          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-slate-600 font-medium max-w-md mx-auto leading-relaxed">
+          <p className="mt-2 sm:mt-2.5 text-xs sm:text-sm text-muted-foreground font-medium max-w-md mx-auto leading-relaxed">
             Explore five destinations with budget-friendly travel packages.
           </p>
         </div>
@@ -266,10 +234,10 @@ export function TravelPricingSection({
           {packages.map((pkg) => (
             <div
               key={pkg.id}
-              className="group relative w-full max-w-[240px] bg-white rounded-[38px] sm:rounded-[42px] border border-sky-100/90 shadow-[0_12px_36px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_48px_rgba(15,23,42,0.14)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col p-3 sm:p-3.5"
+              className="group relative w-full max-w-[240px] bg-card text-card-foreground rounded-[38px] sm:rounded-[42px] border border-border shadow-[0_12px_36px_rgba(15,23,42,0.08)] hover:shadow-[0_20px_48px_rgba(15,23,42,0.14)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col p-3 sm:p-3.5"
             >
               {/* Header Image (Landscape inset inside capsule frame) */}
-              <div className="relative w-full aspect-[16/10] rounded-[26px] sm:rounded-[28px] overflow-hidden bg-slate-100 shrink-0">
+              <div className="relative w-full aspect-[16/10] rounded-[26px] sm:rounded-[28px] overflow-hidden bg-muted shrink-0">
                 <Image
                   src={pkg.image}
                   alt={pkg.imageAlt}
@@ -281,15 +249,15 @@ export function TravelPricingSection({
 
               {/* Package Title & Price Header */}
               <div className="mt-3 px-1 flex items-baseline justify-between gap-1.5">
-                <h3 className="font-bold text-slate-900 text-[13px] sm:text-[14px] tracking-tight truncate">
+                <h3 className="font-bold text-card-foreground text-[13px] sm:text-[14px] tracking-tight truncate">
                   {pkg.name}
                 </h3>
 
                 <div className="flex flex-col items-end shrink-0">
-                  <span className="font-black text-slate-900 text-base sm:text-lg leading-none tracking-tight">
+                  <span className="font-black text-card-foreground text-base sm:text-lg leading-none tracking-tight">
                     {pkg.price}
                   </span>
-                  <span className="text-[9px] text-slate-400 font-medium leading-none mt-0.5">
+                  <span className="text-[9px] text-muted-foreground font-medium leading-none mt-0.5">
                     {pkg.billingLabel}
                   </span>
                 </div>
@@ -300,9 +268,9 @@ export function TravelPricingSection({
                 {pkg.features.map((feature, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 text-slate-600 text-[11px] sm:text-[12px] font-medium leading-none"
+                    className="flex items-center gap-2 text-muted-foreground text-[11px] sm:text-[12px] font-medium leading-none"
                   >
-                    <div className="w-4 h-4 rounded-full bg-amber-50 flex items-center justify-center shrink-0">
+                    <div className="w-4 h-4 rounded-full bg-primary-subtle flex items-center justify-center shrink-0">
                       <FeatureIcon type={feature.icon} />
                     </div>
                     <span className="truncate">{feature.label}</span>
@@ -310,12 +278,12 @@ export function TravelPricingSection({
                 ))}
               </div>
 
-              {/* Book Now Button (Bright lime-green pill) */}
+              {/* Book Now Button (Brand Primary CTA Pill) */}
               <div className="mt-4 pt-1 pb-0.5 flex justify-center">
                 <Link
                   href="/tours"
                   aria-label={`Book ${pkg.name} package`}
-                  className="inline-flex items-center justify-center w-full max-w-[170px] py-2 px-5 rounded-full bg-[#84cc16] hover:bg-[#65a30d] text-white text-xs font-bold tracking-wide shadow-xs hover:shadow-md active:scale-95 transition-all duration-200 select-none text-center"
+                  className="inline-flex items-center justify-center w-full max-w-[170px] py-2 px-5 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-primary-foreground text-xs font-bold tracking-wide shadow-xs hover:shadow-md active:scale-95 transition-all duration-200 select-none text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   Book Now
                 </Link>
