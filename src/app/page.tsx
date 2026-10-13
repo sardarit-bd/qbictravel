@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import {
   HeroSection,
   EasyStepsSection,
+  DestinationRecommendationsSection,
   TrendingDestinationSection,
   TravelPricingSection,
 } from "@/components/home";
@@ -24,6 +25,9 @@ export default function Home() {
 
       {/* Easy Steps For Booking Section */}
       <EasyStepsSection />
+
+      {/* Destination Recommendations Section ("We Recommend Beautiful Destinations Every Month") */}
+      <DestinationRecommendationsSection />
 
       {/* Trending Destinations Editorial Collage Section */}
       <TrendingDestinationSection />
