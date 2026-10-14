@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Play, MapPin, Video, Compass, Users, Heart, ArrowRight } from "lucide-react";
+import { Play, MapPin, Video, Compass, BadgeCheck, Users, ArrowRight } from "lucide-react";
 import { cn } from "cn";
 
 export interface DestinationMediaItem {
@@ -104,8 +104,8 @@ function DestinationMediaCard({
       className={cn(
         "group relative overflow-hidden bg-slate-950 border-white transition-all duration-300 hover:shadow-2xl cursor-pointer select-none",
         isCenter
-          ? "rounded-[28px] sm:rounded-[36px] border-[5px] sm:border-[7px] shadow-[0_20px_50px_rgba(15,23,42,0.18)]"
-          : "rounded-[20px] sm:rounded-[26px] border-[4px] sm:border-[5px] shadow-[0_14px_36px_rgba(15,23,42,0.14)]",
+          ? "rounded-[22px] sm:rounded-[28px] md:rounded-[36px] border-[4px] sm:border-[5px] md:border-[7px] shadow-[0_20px_50px_rgba(15,23,42,0.18)]"
+          : "rounded-[16px] sm:rounded-[20px] md:rounded-[26px] border-[3px] sm:border-[4px] md:border-[5px] shadow-[0_14px_36px_rgba(15,23,42,0.14)]",
         isPlaying ? "z-30 shadow-2xl scale-[1.02]" : isCenter ? "z-20 hover:scale-[1.02]" : "z-10 hover:scale-[1.02]",
         className
       )}
@@ -156,13 +156,13 @@ function DestinationMediaCard({
             aria-label={`Play ${item.name} video`}
             className={cn(
               "rounded-full bg-black/45 backdrop-blur-[2px] border-2 border-white/90 flex items-center justify-center text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:bg-black/60 pointer-events-auto",
-              isCenter ? "w-13 h-13 sm:w-16 sm:h-16" : "w-8 h-8 sm:w-10 sm:h-10"
+              isCenter ? "w-11 h-11 sm:w-13 sm:h-13 md:w-16 md:h-16" : "w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10"
             )}
           >
             <Play
               className={cn(
                 "text-white fill-white ml-0.5",
-                isCenter ? "w-6 h-6 sm:w-7 sm:h-7" : "w-3.5 h-3.5 sm:w-4 sm:h-4"
+                isCenter ? "w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" : "w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4"
               )}
             />
           </button>
@@ -171,18 +171,18 @@ function DestinationMediaCard({
 
       {/* Bottom Meta Info: Location & Duration (hidden during playback to avoid covering video controls) */}
       {!isPlaying && (
-        <div className="absolute inset-x-0 bottom-0 p-2 sm:p-3.5 flex items-center justify-between gap-1 z-10 pointer-events-none transition-opacity duration-200">
-          <div className="flex items-center gap-1 min-w-0 text-white">
+        <div className="absolute inset-x-0 bottom-0 p-1.5 sm:p-2.5 md:p-3.5 flex items-center justify-between gap-1 z-10 pointer-events-none transition-opacity duration-200">
+          <div className="flex items-center gap-0.5 sm:gap-1 min-w-0 text-white">
             <MapPin
               className={cn(
                 "text-white fill-white/25 shrink-0",
-                isCenter ? "w-3.5 h-3.5 sm:w-4 sm:h-4" : "w-2.5 h-2.5 sm:w-3.5 sm:h-3.5"
+                isCenter ? "w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" : "w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3.5 md:h-3.5"
               )}
             />
             <span
               className={cn(
                 "font-bold truncate drop-shadow-sm",
-                isCenter ? "text-xs sm:text-sm" : "text-[9px] sm:text-[11px]"
+                isCenter ? "text-[10px] sm:text-xs md:text-sm" : "text-[8px] sm:text-[9px] md:text-[11px]"
               )}
             >
               {item.name}
@@ -191,8 +191,8 @@ function DestinationMediaCard({
 
           <span
             className={cn(
-              "rounded-full bg-black/60 backdrop-blur-xs text-white font-semibold shrink-0 px-1.5 py-0.5 leading-none",
-              isCenter ? "text-[10px] sm:text-xs" : "text-[8px] sm:text-[10px]"
+              "rounded-full bg-black/60 backdrop-blur-xs text-white font-semibold shrink-0 px-1 sm:px-1.5 py-0.5 leading-none",
+              isCenter ? "text-[9px] sm:text-[10px] md:text-xs" : "text-[7px] sm:text-[8px] md:text-[10px]"
             )}
           >
             {item.duration}
@@ -226,16 +226,16 @@ export function DestinationRecommendationsSection({
     <section
       id="destination-recommendations"
       aria-label="Destination Recommendations"
-      className="relative w-full bg-white overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="relative w-full bg-white overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24"
     >
       <div className="relative z-10 w-full max-w-[1340px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-14 items-center">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 sm:gap-12 lg:gap-14 xl:gap-14 items-center">
           {/* ===================================================================
               LEFT SIDE: DESTINATION VIDEO COLLAGE (~53% desktop width / 7 cols)
               =================================================================== */}
-          <div className="lg:col-span-7 w-full flex items-center justify-center overflow-visible">
+          <div className="xl:col-span-7 w-full flex items-center justify-center overflow-visible">
             {/* Collage Container with responsive proportions & comfortable card spacing */}
-            <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[670px] h-[480px] sm:h-[540px] md:h-[580px] lg:h-[600px] select-none mx-auto">
+            <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[540px] md:max-w-[600px] xl:max-w-[670px] h-[360px] sm:h-[490px] md:h-[540px] lg:h-[570px] xl:h-[600px] select-none mx-auto">
               {/* Background Wash 1: Watercolor map texture */}
               <div
                 className="absolute inset-0 pointer-events-none select-none z-0 opacity-70"
@@ -251,7 +251,7 @@ export function DestinationRecommendationsSection({
 
               {/* Background Wash 2: Soft watercolor shape blur wash */}
               <div
-                className="absolute -left-6 sm:-left-12 top-6 sm:top-10 w-60 sm:w-80 h-44 sm:h-52 pointer-events-none select-none z-0 opacity-55"
+                className="absolute -left-3 sm:-left-6 md:-left-12 top-4 sm:top-6 md:top-10 w-44 sm:w-60 md:w-80 h-32 sm:h-44 md:h-52 pointer-events-none select-none z-0 opacity-55"
                 aria-hidden="true"
               >
                 <Image
@@ -264,7 +264,7 @@ export function DestinationRecommendationsSection({
 
               {/* Decorative Leaves: Clearly visible botanical framing along far-left edge behind cards */}
               <div
-                className="absolute -left-12 sm:-left-16 md:-left-20 lg:-left-24 top-[20%] sm:top-[22%] w-36 sm:w-48 md:w-56 lg:w-60 h-36 sm:h-48 md:h-56 lg:h-60 pointer-events-none select-none z-0 opacity-85 -rotate-12"
+                className="absolute -left-5 sm:-left-12 md:-left-16 lg:-left-20 xl:-left-24 top-[18%] sm:top-[20%] md:top-[22%] w-24 sm:w-36 md:w-48 lg:w-56 xl:w-60 h-24 sm:h-36 md:h-48 lg:h-56 xl:h-60 pointer-events-none select-none z-0 opacity-85 -rotate-12"
                 aria-hidden="true"
               >
                 <Image
@@ -282,7 +282,7 @@ export function DestinationRecommendationsSection({
                   - Enlarged realistic airplane aligned to the flight path
                   =============================================================== */}
               <div
-                className="absolute -top-4 sm:-top-6 inset-x-0 w-full h-[160px] sm:h-[90px] pointer-events-none select-none z-0 overflow-visible"
+                className="absolute -top-3 sm:-top-5 md:-top-6 inset-x-0 w-full h-[75px] sm:h-[90px] md:h-[110px] lg:h-[130px] xl:h-[140px] pointer-events-none select-none z-0 overflow-visible"
                 aria-hidden="true"
               >
                 <svg
@@ -304,7 +304,7 @@ export function DestinationRecommendationsSection({
 
               {/* Decorative Sunburst SVG: Subtle accent in upper flight path / airplane composition */}
               <div
-                className="absolute right-[24%] sm:right-[26%] md:right-[28%] -top-2 sm:-top-3 md:-top-4 w-8 sm:w-10 md:w-12 pointer-events-none select-none z-0 drop-shadow-2xs opacity-90"
+                className="absolute right-[95%] sm:right-[95%] md:right-[95%] w-7 sm:w-8 md:w-10 xl:w-12 pointer-events-none select-none z-0 drop-shadow-2xs opacity-90"
                 aria-hidden="true"
               >
                 <Image
@@ -318,7 +318,7 @@ export function DestinationRecommendationsSection({
 
               {/* Realistic Airplane Asset: Rendered at ~1.6x size, aligned with flight route endpoint */}
               <div
-                className="absolute right-[4%] sm:right-[6%] md:right-[5%] top-[-11%] sm:top-[0.5%] md:top-[-11%] w-28 sm:w-36 md:w-44 pointer-events-none select-none z-0 drop-shadow-sm transform -rotate-[13deg]"
+                className="absolute right-[2%] sm:right-[4%] md:right-[5%] top-[-8%] sm:top-[-9%] md:top-[-11%] w-24 sm:w-30 md:w-36 lg:w-40 xl:w-44 pointer-events-none select-none z-0 drop-shadow-sm transform -rotate-[13deg]"
                 aria-hidden="true"
               >
                 <Image
@@ -340,26 +340,26 @@ export function DestinationRecommendationsSection({
               {/* CARD 1: Upper-left card (Interlaken, Switzerland) — Staggered upper-left */}
               <DestinationMediaCard
                 item={topLeftItem}
-                className="absolute left-[0%] sm:left-[1%] top-[4%] sm:top-[5%] w-[28%] sm:w-[29%] max-w-[180px] aspect-[9/13] -rotate-[4deg]"
+                className="absolute left-[1%] top-[4%] sm:top-[5%] w-[30%] sm:w-[29%] max-w-[180px] aspect-[9/13] -rotate-[4deg]"
               />
 
               {/* CARD 2: Lower-left card (Santorini, Greece) — Staggered lower-left, apart vertically */}
               <DestinationMediaCard
                 item={bottomLeftItem}
-                className="absolute left-[2%] sm:left-[3%] bottom-[3%] sm:bottom-[4%] w-[28%] sm:w-[29%] max-w-[180px] aspect-[9/13] -rotate-[1deg]"
+                className="absolute left-[2%] sm:left-[3%] bottom-[3%] sm:bottom-[4%] w-[30%] sm:w-[29%] max-w-[180px] aspect-[9/13] -rotate-[1deg]"
               />
 
               {/* CARD 3: Center Primary Card (Phuket, Thailand) — Prominent vertical focal point */}
               <DestinationMediaCard
                 item={centerItem}
                 isCenter
-                className="absolute left-[29%] sm:left-[28%] top-[6%] sm:top-[7%] w-[42%] sm:w-[44%] max-w-[270px] aspect-[9/13]"
+                className="absolute left-[28%] sm:left-[28%] top-[6%] sm:top-[7%] w-[44%] sm:w-[44%] max-w-[270px] aspect-[9/13]"
               />
 
               {/* CARD 4: Right Card (Kyoto, Japan) — Staggered right, fully visible playable area */}
               <DestinationMediaCard
                 item={rightItem}
-                className="absolute right-[0%] sm:right-[1%] top-[25%] sm:top-[27%] w-[28%] sm:w-[29%] max-w-[180px] aspect-[9/13] rotate-[4deg]"
+                className="absolute right-[1%] top-[24%] sm:top-[27%] w-[30%] sm:w-[29%] max-w-[180px] aspect-[9/13] rotate-[4deg]"
               />
             </div>
           </div>
@@ -367,33 +367,33 @@ export function DestinationRecommendationsSection({
           {/* ===================================================================
               RIGHT SIDE: CONTENT (~47% desktop width / 5 cols)
               =================================================================== */}
-          <div className="lg:col-span-5 w-full flex flex-col justify-center text-left">
+          <div className="xl:col-span-5 w-full flex flex-col justify-center text-left">
             {/* Eyebrow: "TRAVEL MORE —" */}
             <div className="flex items-center gap-2.5">
-              <span className="text-xs sm:text-sm font-extrabold tracking-widest text-[#E67E22] uppercase">
+              <span className="text-xs sm:text-sm font-extrabold tracking-widest text-primary uppercase">
                 TRAVEL MORE
               </span>
-              <span className="w-8 sm:w-10 h-[2px] bg-[#E67E22] rounded-full" />
+              <span className="w-8 sm:w-10 h-[2px] bg-primary rounded-full" />
             </div>
 
             {/* Main Heading: "We Recommend Beautiful Destinations Every Month" */}
-            <h2 className="mt-3 sm:mt-4 text-3xl sm:text-4xl md:text-[2.65rem] lg:text-[2.9rem] font-extrabold text-foreground tracking-tight leading-[1.12]">
+            <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-[2.9rem] font-extrabold text-foreground tracking-tight leading-[1.12]">
               <span>We Recommend </span>
               <br className="hidden sm:inline" />
               <span>Beautiful </span>
               <span className="relative inline-block">
-                <span className="font-script text-[#E67E22] font-bold text-4xl sm:text-5xl md:text-[3.15rem] lg:text-[3.5rem] select-none inline-block transform -rotate-[2deg]">
+                <span className="font-script text-primary font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[3.15rem] xl:text-[3.5rem] select-none inline-block transform -rotate-[2deg]">
                   Destinations
                 </span>
-                {/* Small orange accent quotation marks */}
-                <span className="absolute -top-1 -right-3 text-[#E67E22] text-sm sm:text-base font-bold select-none">
+                {/* Small accent quotation marks */}
+                <span className="absolute -top-1 -right-3 text-primary text-sm sm:text-base font-bold select-none">
                   &apos;&apos;
                 </span>
                 {/* Subtle curved underline underneath Destinations */}
                 <svg
                   viewBox="0 0 160 12"
                   fill="none"
-                  className="absolute -bottom-1 left-0 w-full h-auto text-[#E67E22]"
+                  className="absolute -bottom-1 left-0 w-full h-auto text-primary"
                   aria-hidden="true"
                 >
                   <path
@@ -409,7 +409,7 @@ export function DestinationRecommendationsSection({
             </h2>
 
             {/* Supporting Description */}
-            <p className="mt-3.5 sm:mt-4 text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl font-normal">
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl font-normal">
               Discover inspiring destinations, unique cultures, and unforgettable experiences shared by our travel community.
             </p>
 
@@ -417,8 +417,8 @@ export function DestinationRecommendationsSection({
             <div className="mt-6 sm:mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-xl">
               {/* Feature 1: Authentic Travel Videos */}
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FEF5E7] border border-[#FAD7A0]/60 flex items-center justify-center text-[#E67E22] shrink-0 shadow-xs">
-                  <Video className="w-5 h-5 stroke-[2]" />
+                <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-foreground shrink-0 shadow-2xs">
+                  <Video className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-xs sm:text-sm font-bold text-foreground leading-snug">
@@ -432,8 +432,8 @@ export function DestinationRecommendationsSection({
 
               {/* Feature 2: Handpicked Destinations */}
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FEF5E7] border border-[#FAD7A0]/60 flex items-center justify-center text-[#E67E22] shrink-0 shadow-xs">
-                  <Compass className="w-5 h-5 stroke-[2]" />
+                <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-foreground shrink-0 shadow-2xs">
+                  <Compass className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-xs sm:text-sm font-bold text-foreground leading-snug">
@@ -447,8 +447,8 @@ export function DestinationRecommendationsSection({
 
               {/* Feature 3: Trusted Recommendations */}
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FEF5E7] border border-[#FAD7A0]/60 flex items-center justify-center text-[#E67E22] shrink-0 shadow-xs">
-                  <Users className="w-5 h-5 stroke-[2]" />
+                <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-foreground shrink-0 shadow-2xs">
+                  <BadgeCheck className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-xs sm:text-sm font-bold text-foreground leading-snug">
@@ -462,8 +462,8 @@ export function DestinationRecommendationsSection({
 
               {/* Feature 4: Inspiring Travel Community */}
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FEF5E7] border border-[#FAD7A0]/60 flex items-center justify-center text-[#E67E22] shrink-0 shadow-xs">
-                  <Heart className="w-5 h-5 stroke-[2]" />
+                <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-foreground shrink-0 shadow-2xs">
+                  <Users className="w-5 h-5 stroke-[1.75]" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-xs sm:text-sm font-bold text-foreground leading-snug">
@@ -477,11 +477,11 @@ export function DestinationRecommendationsSection({
             </div>
 
             {/* Bottom Row: CTA Button & 2.3K+ Happy Travelers */}
-            <div className="mt-8 sm:mt-9 flex flex-wrap items-center gap-5 sm:gap-7">
+            <div className="mt-8 sm:mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7">
               {/* Primary Brand CTA */}
               <Link
                 href="/tours"
-                className="inline-flex items-center gap-3.5 pl-6 pr-2 py-2 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-primary-foreground font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-200 group select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-3.5 pl-6 pr-2 py-2 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-primary-foreground font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-200 group select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shrink-0"
               >
                 <span>Explore Destinations</span>
                 <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-brand-navy flex items-center justify-center text-white shrink-0 group-hover:translate-x-0.5 transition-transform">
@@ -490,7 +490,7 @@ export function DestinationRecommendationsSection({
               </Link>
 
               {/* Traveler Avatar Group with 2.3K+ Social Proof */}
-              <div className="flex items-center gap-3 select-none">
+              <div className="flex items-center gap-3 select-none shrink-0">
                 <div className="flex -space-x-2.5 overflow-hidden py-1">
                   <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-white overflow-hidden shadow-xs shrink-0">
                     <Image

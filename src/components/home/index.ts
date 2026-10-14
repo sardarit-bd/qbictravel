@@ -5,3 +5,4 @@ export * from "./EditorialTravelSection";
 export * from "./DestinationRecommendationsSection";
 export * from "./TrendingDestinationSection";
 export * from "./TravelPricingSection";
+export * from "./TestimonialsSection";

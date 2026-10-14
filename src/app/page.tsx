@@ -6,6 +6,7 @@ import {
   DestinationRecommendationsSection,
   TrendingDestinationSection,
   TravelPricingSection,
+  TestimonialsSection,
 } from "@/components/home";
 
 export const metadata: Metadata = {
@@ -34,6 +35,9 @@ export default function Home() {
 
       {/* Travel Pricing Section ("Price For Travel The World") */}
       <TravelPricingSection />
+
+      {/* Clients Testimonials Section ("Our Clients Say!") */}
+      <TestimonialsSection />
     </main>
   );
 }
