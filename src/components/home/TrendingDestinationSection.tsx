@@ -13,6 +13,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import DriftWall, { DriftWallItem } from "@/components/DriftWall";
 
 /**
  * Filter Categories according to visual reference
@@ -63,6 +65,130 @@ const ALL_DESTINATIONS: DestinationItem[] = [
 ];
 
 /**
+ * Vertical Marquee Gallery Card Definition
+ */
+interface GalleryCardItem {
+  id: string;
+  name: string;
+  country: string;
+  image: string;
+  tag: string;
+  heightClass: string;
+}
+
+/**
+ * First vertical marquee column images (diverse landscapes & varied heights)
+ */
+const MARQUEE_COLUMN_1: GalleryCardItem[] = [
+  {
+    id: "col1-santorini",
+    name: "Santorini",
+    country: "Greece",
+    image: "/images/destinations/santorini-greece.jpg",
+    tag: "Coastal Town",
+    heightClass: "h-[125px] sm:h-[160px] md:h-[200px] lg:h-[250px]",
+  },
+  {
+    id: "col1-interlaken",
+    name: "Interlaken",
+    country: "Switzerland",
+    image: "/images/destinations/interlaken-switzerland.jpg",
+    tag: "Alpine Lakes",
+    heightClass: "h-[155px] sm:h-[195px] md:h-[240px] lg:h-[305px]",
+  },
+  {
+    id: "col1-bali",
+    name: "Ulun Danu",
+    country: "Bali, Indonesia",
+    image: "/images/destinations/bali.jpg",
+    tag: "Tropical Haven",
+    heightClass: "h-[135px] sm:h-[170px] md:h-[210px] lg:h-[265px]",
+  },
+  {
+    id: "col1-kyoto",
+    name: "Yasaka Pagoda",
+    country: "Kyoto, Japan",
+    image: "/images/destinations/kyoto-japan.jpg",
+    tag: "Historic Heritage",
+    heightClass: "h-[120px] sm:h-[150px] md:h-[190px] lg:h-[235px]",
+  },
+  {
+    id: "col1-canada",
+    name: "Moraine Lake",
+    country: "Banff, Canada",
+    image: "/images/destinations/canada.jpg",
+    tag: "Glacial Wonder",
+    heightClass: "h-[150px] sm:h-[190px] md:h-[230px] lg:h-[295px]",
+  },
+];
+
+/**
+ * Second vertical marquee column images (diverse landmarks & staggered heights)
+ */
+const MARQUEE_COLUMN_2: GalleryCardItem[] = [
+  {
+    id: "col2-phuket",
+    name: "Phuket Bay",
+    country: "Thailand",
+    image: "/images/destinations/phuket-thailand.jpg",
+    tag: "Emerald Waters",
+    heightClass: "h-[150px] sm:h-[190px] md:h-[230px] lg:h-[295px]",
+  },
+  {
+    id: "col2-amalfi",
+    name: "Manarola",
+    country: "Cinque Terre, Italy",
+    image: "/images/destinations/italy.jpg",
+    tag: "Cliffside Village",
+    heightClass: "h-[130px] sm:h-[165px] md:h-[205px] lg:h-[255px]",
+  },
+  {
+    id: "col2-switzerland",
+    name: "Lauterbrunnen",
+    country: "Switzerland",
+    image: "/images/destinations/switzerland.jpg",
+    tag: "Waterfall Valley",
+    heightClass: "h-[160px] sm:h-[200px] md:h-[250px] lg:h-[310px]",
+  },
+  {
+    id: "col2-france",
+    name: "Eiffel Tower",
+    country: "Paris, France",
+    image: "/images/destinations/france.jpg",
+    tag: "Famous Landmark",
+    heightClass: "h-[125px] sm:h-[155px] md:h-[195px] lg:h-[240px]",
+  },
+  {
+    id: "col2-railay",
+    name: "Railay Beach",
+    country: "Krabi, Thailand",
+    image: "/images/destinations/thailand.jpg",
+    tag: "Tropical Beach",
+    heightClass: "h-[145px] sm:h-[180px] md:h-[225px] lg:h-[285px]",
+  },
+];
+
+/**
+ * React Bits DriftWall Items:
+ * Interleaved items so that Column 0 receives Column 1 items and Column 1 receives Column 2 items.
+ * With columns={2} and direction="up", DriftWall automatically animates:
+ * - Column 0 (left): UPWARD
+ * - Column 1 (right): DOWNWARD
+ */
+const DRIFT_WALL_ITEMS: DriftWallItem[] = [
+  { image: MARQUEE_COLUMN_1[0].image, title: `${MARQUEE_COLUMN_1[0].name}, ${MARQUEE_COLUMN_1[0].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_2[0].image, title: `${MARQUEE_COLUMN_2[0].name}, ${MARQUEE_COLUMN_2[0].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_1[1].image, title: `${MARQUEE_COLUMN_1[1].name}, ${MARQUEE_COLUMN_1[1].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_2[1].image, title: `${MARQUEE_COLUMN_2[1].name}, ${MARQUEE_COLUMN_2[1].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_1[2].image, title: `${MARQUEE_COLUMN_1[2].name}, ${MARQUEE_COLUMN_1[2].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_2[2].image, title: `${MARQUEE_COLUMN_2[2].name}, ${MARQUEE_COLUMN_2[2].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_1[3].image, title: `${MARQUEE_COLUMN_1[3].name}, ${MARQUEE_COLUMN_1[3].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_2[3].image, title: `${MARQUEE_COLUMN_2[3].name}, ${MARQUEE_COLUMN_2[3].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_1[4].image, title: `${MARQUEE_COLUMN_1[4].name}, ${MARQUEE_COLUMN_1[4].country}`, href: "/tours" },
+  { image: MARQUEE_COLUMN_2[4].image, title: `${MARQUEE_COLUMN_2[4].name}, ${MARQUEE_COLUMN_2[4].country}`, href: "/tours" },
+];
+
+/**
  * TrendingDestinationSection
  * Pixel-accurate reproduction of the QbicTravel Trending Destinations section:
  * - Left column (~60%):
@@ -107,12 +233,39 @@ export function TrendingDestinationSection() {
     ].slice(0, 3);
   }, [filteredDestinations, currentSlide]);
 
+  const totalSlides = Math.min(3, Math.max(1, filteredDestinations.length));
+
   const handlePrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1));
+    setCurrentSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev >= totalSlides - 1 ? 0 : prev + 1));
+  };
+
+  // Touch swipe gesture support for mobile carousel
+  const touchStartXRef = React.useRef<number | null>(null);
+  const touchEndXRef = React.useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.targetTouches[0].clientX;
+    touchEndXRef.current = null;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartXRef.current === null || touchEndXRef.current === null) return;
+    const distance = touchStartXRef.current - touchEndXRef.current;
+    if (distance > 40) {
+      handleNext();
+    } else if (distance < -40) {
+      handlePrev();
+    }
+    touchStartXRef.current = null;
+    touchEndXRef.current = null;
   };
 
   return (
@@ -159,36 +312,17 @@ export function TrendingDestinationSection() {
         </svg>
       </div>
 
-      {/* Top-left blurred tropical foliage accent */}
-      <div
-        className="absolute top-0 left-0 w-16 sm:w-20 md:w-24 h-24 sm:h-32 md:h-36 pointer-events-none select-none z-10 opacity-80 mix-blend-multiply"
-        aria-hidden="true"
-      >
-        <Image
-          src="/images/destinations/leaf-top-left.png"
-          alt=""
-          fill
-          sizes="96px"
-          className="object-contain object-top-left"
-          priority
-        />
-      </div>
 
-      {/* Faint aqua/cyan watercolor wash curve near bottom-left */}
-      <div
-        className="absolute -bottom-14 -left-14 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-cyan-100/35 blur-3xl pointer-events-none select-none z-0"
-        aria-hidden="true"
-      />
 
       {/* =========================================================================
           MAIN EDITORIAL GRID CONTAINER (3:2 Content Balance)
           ========================================================================= */}
-      <div className="relative z-10 w-full max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-5 sm:px-8 md:px-12 lg:px-14 xl:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
+      <div className="relative z-10 w-full max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-8 md:px-12 lg:px-14 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 items-center">
           {/* =====================================================================
               LEFT COLUMN: Editorial Content & Cards (~60-63% canvas width / 7 cols)
               ===================================================================== */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left relative z-10">
+          <div className="lg:col-span-7 flex flex-col items-start text-left relative z-10 w-full min-w-0">
             {/* Eyebrow: EXPLORE NOW + pink horizontal line */}
             <div className="flex items-center gap-2.5">
               <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.22em] text-primary">
@@ -202,21 +336,21 @@ export function TrendingDestinationSection() {
 
             {/* Split Two-Line Headline: "Trending" (script) + "Destinations" (bold sans) */}
             <h2 className="mt-1.5 sm:mt-2 flex flex-col text-left">
-              <span className="font-script text-primary text-5xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-bold leading-[0.92] drop-shadow-xs -rotate-[2deg] origin-left select-none">
+              <span className="font-script text-primary text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-bold leading-[0.92] drop-shadow-xs -rotate-[2deg] origin-left select-none">
                 Trending
               </span>
-              <span className="font-sans font-extrabold text-foreground text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[3.65rem] tracking-tight leading-[1.02] -mt-1 sm:-mt-2">
+              <span className="font-sans font-extrabold text-foreground text-[2rem] sm:text-5xl md:text-[3.25rem] lg:text-[3.65rem] tracking-tight leading-[1.02] -mt-1 sm:-mt-2">
                 Destinations
               </span>
             </h2>
 
             {/* Supporting Paragraph */}
-            <p className="mt-3 sm:mt-3.5 text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-[390px] sm:max-w-[410px]">
+            <p className="mt-3 sm:mt-3.5 text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-full sm:max-w-[420px] md:max-w-[460px] lg:max-w-[410px]">
               Discover incredible destinations and unforgettable travel experiences around the world. Explore stunning landscapes, exciting adventures, and beautiful places waiting to be discovered.
             </p>
 
             {/* 4 Feature Tiles (2 × 2 Grid) */}
-            <div className="mt-5 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 w-full max-w-[440px]">
+            <div className="mt-5 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 w-full max-w-full sm:max-w-[480px] lg:max-w-[440px]">
               {/* Tile 1: Scenic Places */}
               <div className="bg-white rounded-2xl p-2.5 sm:p-3 shadow-xs border border-slate-100 flex items-center gap-3 hover:shadow-md transition-shadow duration-200">
                 <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shrink-0 shadow-xs shadow-pink-500/20">
@@ -278,9 +412,10 @@ export function TrendingDestinationSection() {
               </div>
             </div>
 
-            {/* Category Filter Pills */}
+            {/* Category Filter Pills (Smooth horizontal scroll without page overflow or clipping) */}
             <div
-              className="mt-6 sm:mt-7 flex items-center gap-2 overflow-x-auto w-full max-w-[580px] pb-1 scrollbar-none"
+              className="mt-5 sm:mt-6 flex items-center gap-2 overflow-x-auto w-full max-w-full lg:max-w-[580px] pb-1.5 scrollbar-none no-scrollbar touch-pan-x select-none"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               role="tablist"
               aria-label="Destination category filters"
             >
@@ -307,49 +442,111 @@ export function TrendingDestinationSection() {
               })}
             </div>
 
-            {/* Three Destination Image Cards */}
-            <div className="mt-5 sm:mt-6 w-full max-w-[620px]">
-              {displayedDestinations.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-3.5">
-                  {displayedDestinations.map((item) => (
+            {/* Destination Image Cards:
+                - Mobile (< sm): 1-card responsive swipe carousel
+                - Tablet & Desktop (>= sm): 3-card proportional grid */}
+            <div className="mt-5 sm:mt-6 w-full max-w-full sm:max-w-[620px] md:max-w-[660px] lg:max-w-[620px]">
+              {filteredDestinations.length > 0 ? (
+                <>
+                  {/* Mobile 1-Card Swipe Carousel (< sm / < 640px) */}
+                  <div
+                    className="block sm:hidden w-full overflow-hidden rounded-xl touch-pan-y"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                  >
                     <div
-                      key={item.id}
-                      className="group relative aspect-[4/3] w-full max-w-[280px] sm:max-w-none overflow-hidden rounded-xl bg-slate-100 shadow-md border border-slate-100/90 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="flex transition-transform duration-300 ease-out"
+                      style={{
+                        transform: `translateX(-${(currentSlide % Math.max(1, filteredDestinations.length)) * 100}%)`,
+                      }}
                     >
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 30vw, 200px"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-
-                      {/* Dark gradient for text and button contrast */}
-                      <div
-                        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"
-                        aria-hidden="true"
-                      />
-
-                      {/* Card Content & Interactive Arrow */}
-                      <div className="absolute inset-x-0 bottom-0 p-2 sm:p-2.5 flex items-center justify-between z-10 gap-1.5">
-                        <div className="flex items-center gap-1 text-white min-w-0">
-                          <MapPin className="w-3.5 h-3.5 text-primary fill-primary shrink-0" />
-                          <span className="text-[10px] sm:text-[10.5px] md:text-[11px] font-bold tracking-tight drop-shadow-sm truncate">
-                            {item.name}
-                          </span>
-                        </div>
-
-                        <Link
-                          href="/tours"
-                          className="w-7 h-7 rounded-full bg-white flex items-center justify-center text-primary shadow-md hover:scale-110 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0"
-                          aria-label={`Explore tours in ${item.name}`}
+                      {filteredDestinations.map((item) => (
+                        <div
+                          key={item.id}
+                          className="w-full shrink-0 px-0.5"
                         >
-                          <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                        </Link>
-                      </div>
+                          <div className="group relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-slate-100 shadow-md border border-slate-100/90">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              sizes="92vw"
+                              className="object-cover"
+                              priority
+                            />
+
+                            {/* Dark gradient for text and button contrast */}
+                            <div
+                              className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"
+                              aria-hidden="true"
+                            />
+
+                            {/* Card Content & Interactive Arrow */}
+                            <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between z-10 gap-2">
+                              <div className="flex items-center gap-1.5 text-white min-w-0">
+                                <MapPin className="w-4 h-4 text-primary fill-primary shrink-0" />
+                                <span className="text-xs font-bold tracking-tight drop-shadow-sm truncate">
+                                  {item.name}
+                                </span>
+                              </div>
+
+                              <Link
+                                href="/tours"
+                                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary shadow-md active:scale-95 transition-all duration-200 shrink-0"
+                                aria-label={`Explore tours in ${item.name}`}
+                              >
+                                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+
+                  {/* Tablet & Desktop 3-Card Grid (>= sm / >= 640px) */}
+                  <div className="hidden sm:grid sm:grid-cols-3 gap-3 sm:gap-3.5">
+                    {displayedDestinations.map((item) => (
+                      <div
+                        key={item.id}
+                        className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100 shadow-md border border-slate-100/90 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      >
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          sizes="(max-width: 1024px) 30vw, 200px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+
+                        {/* Dark gradient for text and button contrast */}
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"
+                          aria-hidden="true"
+                        />
+
+                        {/* Card Content & Interactive Arrow */}
+                        <div className="absolute inset-x-0 bottom-0 p-2 sm:p-2.5 flex items-center justify-between z-10 gap-1.5">
+                          <div className="flex items-center gap-1 text-white min-w-0">
+                            <MapPin className="w-3.5 h-3.5 text-primary fill-primary shrink-0" />
+                            <span className="text-[10px] sm:text-[10.5px] md:text-[11px] font-bold tracking-tight drop-shadow-sm truncate">
+                              {item.name}
+                            </span>
+                          </div>
+
+                          <Link
+                            href="/tours"
+                            className="w-7 h-7 rounded-full bg-white flex items-center justify-center text-primary shadow-md hover:scale-110 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0"
+                            aria-label={`Explore tours in ${item.name}`}
+                          >
+                            <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
               ) : (
                 <div className="bg-white/80 rounded-xl p-6 text-center border border-slate-100 text-muted-foreground text-xs">
                   No destinations found for &quot;{selectedCategory}&quot;. Try selecting{" "}
@@ -364,26 +561,27 @@ export function TrendingDestinationSection() {
               )}
             </div>
 
-            {/* Carousel Controls (Aligned toward the left under destination cards) */}
+            {/* Carousel Controls (Aligned under destination cards) */}
             <div className="mt-4 sm:mt-5 flex items-center gap-3">
               {/* Previous Slide Button */}
               <button
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous destination slide"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center text-foreground hover:text-primary hover:border-primary/40 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                disabled={filteredDestinations.length <= 1}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center text-foreground hover:text-primary hover:border-primary/40 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-40 disabled:pointer-events-none"
               >
                 <ChevronLeft className="w-4 h-4 stroke-[2.2]" />
               </button>
 
-              {/* 3 Pagination Dots */}
+              {/* Pagination Dots */}
               <div
                 className="flex items-center gap-1.5"
                 role="tablist"
                 aria-label="Destination slide pagination"
               >
-                {[0, 1, 2].map((idx) => {
-                  const isActive = currentSlide === idx;
+                {Array.from({ length: totalSlides }).map((_, idx) => {
+                  const isActive = (currentSlide % totalSlides) === idx;
                   return (
                     <button
                       key={idx}
@@ -407,7 +605,8 @@ export function TrendingDestinationSection() {
                 type="button"
                 onClick={handleNext}
                 aria-label="Next destination slide"
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center text-foreground hover:text-primary hover:border-primary/40 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                disabled={filteredDestinations.length <= 1}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center text-foreground hover:text-primary hover:border-primary/40 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-40 disabled:pointer-events-none"
               >
                 <ChevronRight className="w-4 h-4 stroke-[2.2]" />
               </button>
@@ -415,160 +614,43 @@ export function TrendingDestinationSection() {
           </div>
 
           {/* =====================================================================
-              RIGHT COLUMN: Multi-Layer Editorial Travel Collage (~37-40% canvas width)
+              RIGHT COLUMN: Vertical Travel Image Marquee Gallery (~37-40% canvas width)
               ===================================================================== */}
-          <div className="lg:col-span-5 relative flex items-center justify-center lg:justify-end select-none mt-8 lg:mt-0">
-            {/* Stage — overflow-visible so floating layers can bleed outside bounds */}
+          <div className="lg:col-span-5 relative flex flex-col items-center lg:items-end justify-center select-none mt-6 sm:mt-8 lg:mt-0 w-full min-w-0">
+            {/* Ambient soft glow behind the marquee viewport */}
             <div
-              className="relative w-full max-w-[520px] lg:max-w-none overflow-visible"
-              style={{ aspectRatio: "530 / 662" }}
-            >
-              {/* ── Layer 0: Ambient radial glow behind the organic blob ── */}
-              <div
-                className="absolute inset-[8%] rounded-full bg-gradient-to-br from-sky-100/60 via-cyan-50/30 to-transparent blur-3xl pointer-events-none"
-                aria-hidden="true"
+              className="absolute -inset-3 sm:-inset-4 rounded-3xl bg-gradient-to-tr from-pink-100/40 via-sky-100/30 to-amber-100/20 blur-2xl pointer-events-none"
+              aria-hidden="true"
+            />
+
+            {/* React Bits DriftWall Gallery Viewport */}
+            <div className="relative w-full max-w-[480px] sm:max-w-[540px] md:max-w-[580px] lg:max-w-none h-[340px] sm:h-[400px] md:h-[480px] lg:h-[640px] xl:h-[660px] overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-900/5 p-1 border border-slate-100/80 shadow-sm">
+              <DriftWall
+                items={DRIFT_WALL_ITEMS}
+                columns={2}
+                tileWidth={195}
+                tileHeight={140}
+                gap={14}
+                radius={16}
+                tilt={14}
+                turn={-12}
+                roll={0}
+                perspective={1200}
+                depth={80}
+                speed={32}
+                direction="up"
+                variance={0.05}
+                parallax={0.4}
+                pauseOnHover={true}
+                lift={48}
+                dim={0.78}
+                fade={0.55}
+                overlayColor="#0b0818"
+                className="w-full h-full"
               />
-
-              {/* ── Layer 1: Main traveler collage (organic blob, transparent bg) ── */}
-              <div className="absolute inset-0 z-10">
-                <Image
-                  src="/images/destinations/trending-collage-traveler-v2.png"
-                  alt="Traveler with backpack looking out over panoramic tropical mountain bay"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  className="object-contain object-center lg:object-right"
-                  priority
-                />
-              </div>
-
-              {/* ── Layer 2: Pink dot-scatter decoration (top-right, behind polaroid) ── */}
-              <div
-                aria-hidden="true"
-                className="absolute z-10 w-[22%] h-[18%] pointer-events-none"
-                style={{
-                  top: "3%",
-                  right: "-2%",
-                  backgroundImage:
-                    "radial-gradient(circle, #f9a8d4 1.5px, transparent 1.5px)",
-                  backgroundSize: "9px 9px",
-                  opacity: 0.65,
-                }}
-              />
-
-              {/* ── Layer 3: Floating Polaroid card — mountain scene (top-right) ── */}
-              <div
-                aria-hidden="true"
-                className="absolute z-20 w-[38%]"
-                style={{ top: "-3%", right: "-8%", transform: "rotate(6deg)" }}
-              >
-                <div
-                  className="bg-white rounded-[3px]"
-                  style={{
-                    padding: "5px 5px 22px 5px",
-                    boxShadow:
-                      "0 10px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.09)",
-                  }}
-                >
-                  <div
-                    className="relative w-full overflow-hidden bg-slate-100"
-                    style={{ aspectRatio: "4/3" }}
-                  >
-                    <Image
-                      src="/images/destinations/card-mountain.png"
-                      alt=""
-                      fill
-                      sizes="180px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <p className="text-center text-[7px] sm:text-[8px] font-semibold text-slate-400 leading-tight mt-[3px] tracking-widest uppercase">
-                    Mountain Views ✦
-                  </p>
-                </div>
-              </div>
-
-              {/* ── Layer 4: Location info badge (left edge, lower-mid) ── */}
-              <div
-                aria-hidden="true"
-                className="absolute z-20 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100/80"
-                style={{
-                  bottom: "28%",
-                  left: "-4%",
-                  padding: "6px 11px 6px 7px",
-                }}
-              >
-                <div className="w-[22px] h-[22px] rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <MapPin className="w-3 h-3 text-primary fill-primary/10" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[7px] font-medium text-muted-foreground leading-none">
-                    Location
-                  </span>
-                  <span className="text-[9px] font-bold text-foreground leading-tight mt-0.5">
-                    Phi Phi Islands
-                  </span>
-                </div>
-              </div>
-
-              {/* ── Layer 5: Traveler count badge (right edge, lower) ── */}
-              <div
-                aria-hidden="true"
-                className="absolute z-20 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100/80"
-                style={{
-                  bottom: "13%",
-                  right: "-5%",
-                  padding: "6px 11px 6px 7px",
-                }}
-              >
-                {/* Stacked avatar initials */}
-                <div className="flex -space-x-1.5 shrink-0">
-                  {(
-                    [
-                      { bg: "bg-primary", letter: "A" },
-                      { bg: "bg-amber-400", letter: "M" },
-                      { bg: "bg-sky-400", letter: "K" },
-                    ] as const
-                  ).map(({ bg, letter }) => (
-                    <div
-                      key={letter}
-                      className={`w-5 h-5 rounded-full ${bg} border-2 border-white flex items-center justify-center`}
-                    >
-                      <span className="text-white text-[6px] font-extrabold leading-none">
-                        {letter}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[9px] font-bold text-foreground leading-none">
-                    120+ Travelers
-                  </span>
-                  <span className="text-[7px] font-medium text-muted-foreground mt-[3px] leading-none">
-                    This month
-                  </span>
-                </div>
-              </div>
-
-              {/* ── Layer 6: ★ Rating pill (left edge, mid-height) ── */}
-              <div
-                aria-hidden="true"
-                className="absolute z-20 flex items-center gap-1 bg-primary text-white rounded-full shadow-lg"
-                style={{ top: "48%", left: "1%", padding: "5px 10px 5px 8px" }}
-              >
-                <svg
-                  className="w-3 h-3 fill-white shrink-0"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-                <span className="text-[10px] font-bold leading-none">4.9</span>
-                <span className="text-[8px] opacity-75 leading-none ml-0.5">
-                  / 5.0
-                </span>
-              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
