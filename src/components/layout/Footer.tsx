@@ -115,11 +115,7 @@ const QUICK_LINKS = [
 ];
 
 export function Footer() {
-  const [currentYear, setCurrentYear] = React.useState(2026);
-
-  React.useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
+  const currentYear = 2026;
 
   return (
     <footer
