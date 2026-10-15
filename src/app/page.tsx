@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Navbar } from "@/components/layout/Navbar";
+import { Navbar, Footer } from "@/components/layout";
 import {
   HeroSection,
   EasyStepsSection,
@@ -7,6 +7,9 @@ import {
   TrendingDestinationSection,
   TravelPricingSection,
   TestimonialsSection,
+  LatestNewsSection,
+  PopularDestinationsSection,
+  NewsletterSection,
 } from "@/components/home";
 
 export const metadata: Metadata = {
@@ -38,6 +41,18 @@ export default function Home() {
 
       {/* Clients Testimonials Section ("Our Clients Say!") */}
       <TestimonialsSection />
+
+      {/* Section One: Latest News Section ("Explore Latest News") */}
+      <LatestNewsSection />
+
+      {/* Section Two: Popular Destinations Section ("Popular Destinations") */}
+      <PopularDestinationsSection />
+
+      {/* Section Three: Newsletter Section ("Get Inspired. Travel More.") */}
+      <NewsletterSection />
+
+      {/* Modern Responsive Footer */}
+      <Footer />
     </main>
   );
 }

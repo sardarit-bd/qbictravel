@@ -253,7 +253,7 @@ export function TestimonialsSection() {
             <div className="lg:col-span-7 flex flex-col justify-center text-left">
               {/* Soft Brand Accent Quote Mark */}
               <div
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary-subtle/80 flex items-center justify-center text-primary mb-4 sm:mb-5 shadow-xs"
+                className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center text-primary mb-4 sm:mb-5"
                 aria-hidden="true"
               >
                 <Quote className="w-6 h-6 sm:w-7 sm:h-7 fill-current stroke-[1.5]" />

@@ -6,3 +6,6 @@ export * from "./DestinationRecommendationsSection";
 export * from "./TrendingDestinationSection";
 export * from "./TravelPricingSection";
 export * from "./TestimonialsSection";
+export * from "./LatestNewsSection";
+export * from "./PopularDestinationsSection";
+export * from "./NewsletterSection";
