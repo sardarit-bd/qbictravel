@@ -68,7 +68,11 @@ export function HeroSearchPanel() {
         className="flex flex-col md:flex-row items-stretch md:items-center divide-y md:divide-y-0 md:divide-x divide-zinc-200"
       >
         {/* Field 1: Location */}
-        <div className="relative flex-1 px-3 py-2 md:py-1">
+        <div
+          className={`relative flex-1 px-3 py-2 md:py-1 ${
+            activeDropdown === "location" ? "z-30" : "z-10"
+          }`}
+        >
           <label
             htmlFor="hero-location-btn"
             className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-0.5 cursor-pointer"
@@ -127,7 +131,11 @@ export function HeroSearchPanel() {
         </div>
 
         {/* Field 2: Themes */}
-        <div className="relative flex-1 px-3 py-2 md:py-1">
+        <div
+          className={`relative flex-1 px-3 py-2 md:py-1 ${
+            activeDropdown === "theme" ? "z-30" : "z-10"
+          }`}
+        >
           <label
             htmlFor="hero-themes-btn"
             className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-0.5 cursor-pointer"
@@ -178,7 +186,11 @@ export function HeroSearchPanel() {
         </div>
 
         {/* Field 3: Traveler */}
-        <div className="relative px-3 py-2 md:py-1 min-w-[100px] md:min-w-[110px]">
+        <div
+          className={`relative px-3 py-2 md:py-1 min-w-[100px] md:min-w-[110px] ${
+            activeDropdown === "travelers" ? "z-30" : "z-10"
+          }`}
+        >
           <label
             htmlFor="hero-travelers-btn"
             className="block text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-0.5 cursor-pointer"
@@ -200,7 +212,7 @@ export function HeroSearchPanel() {
 
           {/* Traveler Counter Dropdown */}
           {activeDropdown === "travelers" && (
-            <div className="absolute left-0 bottom-full md:bottom-auto md:top-full mb-2 md:mb-0 md:mt-3 w-52 rounded-xl bg-white shadow-xl border border-zinc-100 p-3 z-50 animate-in fade-in zoom-in-95 duration-150">
+            <div className="absolute left-0 md:left-auto md:right-0 bottom-full md:bottom-auto md:top-full mb-2 md:mb-0 md:mt-3 w-52 rounded-xl bg-white shadow-xl border border-zinc-100 p-3 z-50 animate-in fade-in zoom-in-95 duration-150">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-bold text-zinc-800">Guests</p>
