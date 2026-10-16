@@ -176,16 +176,56 @@ const MARQUEE_COLUMN_2: GalleryCardItem[] = [
  * - Column 1 (right): DOWNWARD
  */
 const DRIFT_WALL_ITEMS: DriftWallItem[] = [
-  { image: MARQUEE_COLUMN_1[0].image, title: `${MARQUEE_COLUMN_1[0].name}, ${MARQUEE_COLUMN_1[0].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_2[0].image, title: `${MARQUEE_COLUMN_2[0].name}, ${MARQUEE_COLUMN_2[0].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_1[1].image, title: `${MARQUEE_COLUMN_1[1].name}, ${MARQUEE_COLUMN_1[1].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_2[1].image, title: `${MARQUEE_COLUMN_2[1].name}, ${MARQUEE_COLUMN_2[1].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_1[2].image, title: `${MARQUEE_COLUMN_1[2].name}, ${MARQUEE_COLUMN_1[2].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_2[2].image, title: `${MARQUEE_COLUMN_2[2].name}, ${MARQUEE_COLUMN_2[2].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_1[3].image, title: `${MARQUEE_COLUMN_1[3].name}, ${MARQUEE_COLUMN_1[3].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_2[3].image, title: `${MARQUEE_COLUMN_2[3].name}, ${MARQUEE_COLUMN_2[3].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_1[4].image, title: `${MARQUEE_COLUMN_1[4].name}, ${MARQUEE_COLUMN_1[4].country}`, href: "/tours" },
-  { image: MARQUEE_COLUMN_2[4].image, title: `${MARQUEE_COLUMN_2[4].name}, ${MARQUEE_COLUMN_2[4].country}`, href: "/tours" },
+  {
+    image: MARQUEE_COLUMN_1[0].image,
+    title: `${MARQUEE_COLUMN_1[0].name}, ${MARQUEE_COLUMN_1[0].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_2[0].image,
+    title: `${MARQUEE_COLUMN_2[0].name}, ${MARQUEE_COLUMN_2[0].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_1[1].image,
+    title: `${MARQUEE_COLUMN_1[1].name}, ${MARQUEE_COLUMN_1[1].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_2[1].image,
+    title: `${MARQUEE_COLUMN_2[1].name}, ${MARQUEE_COLUMN_2[1].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_1[2].image,
+    title: `${MARQUEE_COLUMN_1[2].name}, ${MARQUEE_COLUMN_1[2].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_2[2].image,
+    title: `${MARQUEE_COLUMN_2[2].name}, ${MARQUEE_COLUMN_2[2].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_1[3].image,
+    title: `${MARQUEE_COLUMN_1[3].name}, ${MARQUEE_COLUMN_1[3].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_2[3].image,
+    title: `${MARQUEE_COLUMN_2[3].name}, ${MARQUEE_COLUMN_2[3].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_1[4].image,
+    title: `${MARQUEE_COLUMN_1[4].name}, ${MARQUEE_COLUMN_1[4].country}`,
+    href: "/tours",
+  },
+  {
+    image: MARQUEE_COLUMN_2[4].image,
+    title: `${MARQUEE_COLUMN_2[4].name}, ${MARQUEE_COLUMN_2[4].country}`,
+    href: "/tours",
+  },
 ];
 
 /**
@@ -206,7 +246,8 @@ const DRIFT_WALL_ITEMS: DriftWallItem[] = [
  * - Ambient canvas: subtle cool pale blue tint, torn paper decorative borders, soft corner palm leaves
  */
 export function TrendingDestinationSection() {
-  const [selectedCategory, setSelectedCategory] = React.useState<Category>("All");
+  const [selectedCategory, setSelectedCategory] =
+    React.useState<Category>("All");
   const [currentSlide, setCurrentSlide] = React.useState<number>(0);
 
   // Filter destinations based on category
@@ -215,7 +256,7 @@ export function TrendingDestinationSection() {
       return ALL_DESTINATIONS;
     }
     return ALL_DESTINATIONS.filter((item) =>
-      item.categories.includes(selectedCategory)
+      item.categories.includes(selectedCategory),
     );
   }, [selectedCategory]);
 
@@ -257,7 +298,8 @@ export function TrendingDestinationSection() {
   };
 
   const handleTouchEnd = () => {
-    if (touchStartXRef.current === null || touchEndXRef.current === null) return;
+    if (touchStartXRef.current === null || touchEndXRef.current === null)
+      return;
     const distance = touchStartXRef.current - touchEndXRef.current;
     if (distance > 40) {
       handleNext();
@@ -312,8 +354,6 @@ export function TrendingDestinationSection() {
         </svg>
       </div>
 
-
-
       {/* =========================================================================
           MAIN EDITORIAL GRID CONTAINER (3:2 Content Balance)
           ========================================================================= */}
@@ -346,7 +386,10 @@ export function TrendingDestinationSection() {
 
             {/* Supporting Paragraph */}
             <p className="mt-3 sm:mt-3.5 text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-full sm:max-w-[420px] md:max-w-[460px] lg:max-w-[410px]">
-              Discover incredible destinations and unforgettable travel experiences around the world. Explore stunning landscapes, exciting adventures, and beautiful places waiting to be discovered.
+              Discover incredible destinations and unforgettable travel
+              experiences around the world. Explore stunning landscapes,
+              exciting adventures, and beautiful places waiting to be
+              discovered.
             </p>
 
             {/* 4 Feature Tiles (2 × 2 Grid) */}
@@ -462,10 +505,7 @@ export function TrendingDestinationSection() {
                       }}
                     >
                       {filteredDestinations.map((item) => (
-                        <div
-                          key={item.id}
-                          className="w-full shrink-0 px-0.5"
-                        >
+                        <div key={item.id} className="w-full shrink-0 px-0.5">
                           <div className="group relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-slate-100 shadow-md border border-slate-100/90">
                             <Image
                               src={item.image}
@@ -549,7 +589,8 @@ export function TrendingDestinationSection() {
                 </>
               ) : (
                 <div className="bg-white/80 rounded-xl p-6 text-center border border-slate-100 text-muted-foreground text-xs">
-                  No destinations found for &quot;{selectedCategory}&quot;. Try selecting{" "}
+                  No destinations found for &quot;{selectedCategory}&quot;. Try
+                  selecting{" "}
                   <button
                     onClick={() => setSelectedCategory("All")}
                     className="text-primary font-bold hover:underline"
@@ -581,7 +622,7 @@ export function TrendingDestinationSection() {
                 aria-label="Destination slide pagination"
               >
                 {Array.from({ length: totalSlides }).map((_, idx) => {
-                  const isActive = (currentSlide % totalSlides) === idx;
+                  const isActive = currentSlide % totalSlides === idx;
                   return (
                     <button
                       key={idx}
@@ -624,7 +665,7 @@ export function TrendingDestinationSection() {
             />
 
             {/* React Bits DriftWall Gallery Viewport */}
-            <div className="relative w-full max-w-[480px] sm:max-w-[540px] md:max-w-[580px] lg:max-w-none h-[340px] sm:h-[400px] md:h-[480px] lg:h-[640px] xl:h-[660px] overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-900/5 p-1 border border-slate-100/80 shadow-sm">
+            <div className="relative w-full max-w-[480px] sm:max-w-[540px] md:max-w-[580px] lg:max-w-none h-[340px] sm:h-[400px] md:h-[480px] lg:h-[640px] xl:h-[660px] overflow-hidden rounded-2xl">
               <DriftWall
                 items={DRIFT_WALL_ITEMS}
                 columns={2}
@@ -650,7 +691,6 @@ export function TrendingDestinationSection() {
               />
             </div>
           </div>
-
         </div>
       </div>
     </section>

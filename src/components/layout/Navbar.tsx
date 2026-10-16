@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Menu, X, MapPin, ArrowRight } from "lucide-react";
 
 export interface NavItem {
@@ -12,10 +12,10 @@ export interface NavItem {
   isActive?: boolean;
 }
 
-const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/", isActive: true },
+const NAV_ITEMS: Omit<NavItem, "isActive">[] = [
+  { label: "Home", href: "/" },
   { label: "Tours", href: "/tours" },
-  { label: "Packages", href: "/tours" },
+  { label: "Packages", href: "/tours#packages" },
   { label: "Blog", href: "/blog" },
   { label: "Travel Guides", href: "/destinations" },
   { label: "Contact Us", href: "/contact" },
@@ -23,6 +23,7 @@ const NAV_ITEMS: NavItem[] = [
 
 export function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -49,6 +50,22 @@ export function Navbar() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const isItemActive = React.useCallback(
+    (item: (typeof NAV_ITEMS)[number]) => {
+      if (item.label === "Home") return pathname === "/";
+      if (item.label === "Tours")
+        return pathname === "/tours" || pathname?.startsWith("/tours");
+      if (item.label === "Packages") return pathname === "/packages";
+      if (item.label === "Blog")
+        return pathname === "/blog" || pathname?.startsWith("/blog");
+      if (item.label === "Travel Guides")
+        return pathname === "/destinations" || pathname?.startsWith("/destinations");
+      if (item.label === "Contact Us") return pathname === "/contact";
+      return false;
+    },
+    [pathname]
+  );
 
   return (
     <header
@@ -81,7 +98,8 @@ export function Navbar() {
           aria-label="Primary Navigation"
         >
           {NAV_ITEMS.map((item) => {
-            if (item.isActive) {
+            const active = isItemActive(item);
+            if (active) {
               return (
                 <Link
                   key={item.label}
@@ -152,21 +170,24 @@ export function Navbar() {
               Menu Navigation
             </span>
             <div className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${
-                    item.isActive
-                      ? "bg-primary/15 text-primary font-semibold"
-                      : "text-white/85 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  <span>{item.label}</span>
-                  <ArrowRight className="w-4 h-4 opacity-50" />
-                </Link>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const active = isItemActive(item);
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${
+                      active
+                        ? "bg-primary/15 text-primary font-semibold"
+                        : "text-white/85 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowRight className="w-4 h-4 opacity-50" />
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="pt-2 border-t border-white/10 mt-2 flex flex-col gap-2">

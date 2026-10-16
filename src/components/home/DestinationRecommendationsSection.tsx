@@ -3,7 +3,15 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Play, MapPin, Video, Compass, BadgeCheck, Users, ArrowRight } from "lucide-react";
+import {
+  Play,
+  MapPin,
+  Video,
+  Compass,
+  BadgeCheck,
+  Users,
+  ArrowRight,
+} from "lucide-react";
 import { cn } from "cn";
 
 export interface DestinationMediaItem {
@@ -37,28 +45,32 @@ export const DEFAULT_DESTINATION_MEDIA: Record<
     name: "Phuket, Thailand",
     duration: "0:32",
     thumbnailUrl: "/images/destinations/phuket-thailand.jpg",
-    thumbnailAlt: "Woman kayaking in crystal blue waters of Phuket, Thailand with limestone cliffs",
+    thumbnailAlt:
+      "Woman kayaking in crystal blue waters of Phuket, Thailand with limestone cliffs",
   },
   topLeft: {
     id: "interlaken",
     name: "Interlaken, Switzerland",
     duration: "0:28",
     thumbnailUrl: "/images/destinations/interlaken-switzerland.jpg",
-    thumbnailAlt: "Hiker with backpack exploring alpine mountains of Interlaken, Switzerland",
+    thumbnailAlt:
+      "Hiker with backpack exploring alpine mountains of Interlaken, Switzerland",
   },
   bottomLeft: {
     id: "santorini",
     name: "Santorini, Greece",
     duration: "0:25",
     thumbnailUrl: "/images/destinations/santorini-greece.jpg",
-    thumbnailAlt: "Whitewashed architecture and blue domes overlooking the Aegean sea in Santorini, Greece",
+    thumbnailAlt:
+      "Whitewashed architecture and blue domes overlooking the Aegean sea in Santorini, Greece",
   },
   right: {
     id: "kyoto",
     name: "Kyoto, Japan",
     duration: "0:31",
     thumbnailUrl: "/images/destinations/kyoto-japan.jpg",
-    thumbnailAlt: "Scenic view of traditional architecture and torii path in Kyoto, Japan",
+    thumbnailAlt:
+      "Scenic view of traditional architecture and torii path in Kyoto, Japan",
   },
 };
 
@@ -106,8 +118,12 @@ function DestinationMediaCard({
         isCenter
           ? "rounded-[22px] sm:rounded-[28px] md:rounded-[36px] border-[4px] sm:border-[5px] md:border-[7px] shadow-[0_20px_50px_rgba(15,23,42,0.18)]"
           : "rounded-[16px] sm:rounded-[20px] md:rounded-[26px] border-[3px] sm:border-[4px] md:border-[5px] shadow-[0_14px_36px_rgba(15,23,42,0.14)]",
-        isPlaying ? "z-30 shadow-2xl scale-[1.02]" : isCenter ? "z-20 hover:scale-[1.02]" : "z-10 hover:scale-[1.02]",
-        className
+        isPlaying
+          ? "z-30 shadow-2xl scale-[1.02]"
+          : isCenter
+            ? "z-20 hover:scale-[1.02]"
+            : "z-10 hover:scale-[1.02]",
+        className,
       )}
       aria-label={`${item.name} video card`}
     >
@@ -130,7 +146,11 @@ function DestinationMediaCard({
           src={item.thumbnailUrl}
           alt={item.thumbnailAlt}
           fill
-          sizes={isCenter ? "(max-width: 768px) 60vw, 290px" : "(max-width: 768px) 40vw, 200px"}
+          sizes={
+            isCenter
+              ? "(max-width: 768px) 60vw, 290px"
+              : "(max-width: 768px) 40vw, 200px"
+          }
           className="object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
           priority={isCenter}
         />
@@ -156,13 +176,17 @@ function DestinationMediaCard({
             aria-label={`Play ${item.name} video`}
             className={cn(
               "rounded-full bg-black/45 backdrop-blur-[2px] border-2 border-white/90 flex items-center justify-center text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:bg-black/60 pointer-events-auto",
-              isCenter ? "w-11 h-11 sm:w-13 sm:h-13 md:w-16 md:h-16" : "w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10"
+              isCenter
+                ? "w-11 h-11 sm:w-13 sm:h-13 md:w-16 md:h-16"
+                : "w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10",
             )}
           >
             <Play
               className={cn(
                 "text-white fill-white ml-0.5",
-                isCenter ? "w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" : "w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4"
+                isCenter
+                  ? "w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
+                  : "w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4",
               )}
             />
           </button>
@@ -176,13 +200,17 @@ function DestinationMediaCard({
             <MapPin
               className={cn(
                 "text-white fill-white/25 shrink-0",
-                isCenter ? "w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" : "w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3.5 md:h-3.5"
+                isCenter
+                  ? "w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4"
+                  : "w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3.5 md:h-3.5",
               )}
             />
             <span
               className={cn(
                 "font-bold truncate drop-shadow-sm",
-                isCenter ? "text-[10px] sm:text-xs md:text-sm" : "text-[8px] sm:text-[9px] md:text-[11px]"
+                isCenter
+                  ? "text-[10px] sm:text-xs md:text-sm"
+                  : "text-[8px] sm:text-[9px] md:text-[11px]",
               )}
             >
               {item.name}
@@ -192,7 +220,9 @@ function DestinationMediaCard({
           <span
             className={cn(
               "rounded-full bg-black/60 backdrop-blur-xs text-white font-semibold shrink-0 px-1 sm:px-1.5 py-0.5 leading-none",
-              isCenter ? "text-[9px] sm:text-[10px] md:text-xs" : "text-[7px] sm:text-[8px] md:text-[10px]"
+              isCenter
+                ? "text-[9px] sm:text-[10px] md:text-xs"
+                : "text-[7px] sm:text-[8px] md:text-[10px]",
             )}
           >
             {item.duration}
@@ -219,7 +249,8 @@ export function DestinationRecommendationsSection({
 }: DestinationRecommendationsSectionProps) {
   const centerItem = media?.center ?? DEFAULT_DESTINATION_MEDIA.center;
   const topLeftItem = media?.topLeft ?? DEFAULT_DESTINATION_MEDIA.topLeft;
-  const bottomLeftItem = media?.bottomLeft ?? DEFAULT_DESTINATION_MEDIA.bottomLeft;
+  const bottomLeftItem =
+    media?.bottomLeft ?? DEFAULT_DESTINATION_MEDIA.bottomLeft;
   const rightItem = media?.right ?? DEFAULT_DESTINATION_MEDIA.right;
 
   return (
@@ -410,7 +441,8 @@ export function DestinationRecommendationsSection({
 
             {/* Supporting Description */}
             <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl font-normal">
-              Discover inspiring destinations, unique cultures, and unforgettable experiences shared by our travel community.
+              Discover inspiring destinations, unique cultures, and
+              unforgettable experiences shared by our travel community.
             </p>
 
             {/* 4 Feature Items (2x2 Grid) */}
