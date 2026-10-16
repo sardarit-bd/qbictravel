@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Menu, X, MapPin, ArrowRight } from "lucide-react";
 
 export interface NavItem {
@@ -12,20 +12,61 @@ export interface NavItem {
   isActive?: boolean;
 }
 
-const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/", isActive: true },
+const NAV_ITEMS: Omit<NavItem, "isActive">[] = [
+  { label: "Home", href: "/" },
   { label: "Tours", href: "/tours" },
-  { label: "Packages", href: "/tours" },
+  { label: "Packages", href: "/packages" },
   { label: "Blog", href: "/blog" },
-  { label: "Travel Guides", href: "/destinations" },
+  { label: "Travel Tips", href: "/travel-tips" },
   { label: "Contact Us", href: "/contact" },
 ];
 
-export function Navbar() {
+export type NavbarVariant = "transparent" | "solid";
+
+export interface NavbarProps {
+  showSearchAndCta?: boolean;
+  variant?: NavbarVariant;
+  className?: string;
+}
+
+export function Navbar({
+  showSearchAndCta = false,
+  variant,
+  className = "",
+}: NavbarProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  // Monitor scroll for sticky navbar background and styling
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Determine effective mode: explicit prop takes precedence, then fallback route check
+  const isSolidMode = React.useMemo(() => {
+    if (variant === "solid") return true;
+    if (variant === "transparent") return false;
+    // Route-level fallback for safety
+    if (!pathname) return false;
+    if (pathname === "/travel-tips" || pathname.startsWith("/travel-tips/")) return true;
+    if (
+      pathname.startsWith("/packages/") ||
+      pathname.startsWith("/tours/") ||
+      pathname.startsWith("/blog/")
+    ) {
+      return true;
+    }
+    return false;
+  }, [variant, pathname]);
 
   // Close menus on Escape key
   React.useEffect(() => {
@@ -39,37 +80,65 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const isItemActive = React.useCallback(
+    (item: (typeof NAV_ITEMS)[number]) => {
+      if (item.label === "Home") return pathname === "/";
+      if (item.label === "Tours")
+        return pathname === "/tours" || (pathname?.startsWith("/tours/") ?? false);
+      if (item.label === "Packages")
+        return pathname === "/packages" || (pathname?.startsWith("/packages/") ?? false);
+      if (item.label === "Blog")
+        return pathname === "/blog" || pathname?.startsWith("/blog");
+      if (item.label === "Travel Tips")
+        return pathname === "/travel-tips" || (pathname?.startsWith("/travel-tips") ?? false);
+      if (item.label === "Contact Us") return pathname === "/contact";
+      return false;
+    },
+    [pathname]
+  );
+
   return (
-    <header className="relative z-30 w-full px-5 sm:px-8 md:px-12 pt-5 md:pt-7">
-      <div className="flex items-center justify-between">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-300 ${
+        isSolidMode
+          ? isScrolled
+            ? "bg-brand-navy/95 backdrop-blur-md shadow-lg border-b border-white/10"
+            : "bg-brand-navy shadow-md border-b border-white/10"
+          : isScrolled
+            ? "bg-brand-navy/95 backdrop-blur-md shadow-lg border-b border-white/10"
+            : "bg-transparent border-b border-transparent"
+      } ${className}`}
+    >
+      <div className="max-w-[1440px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16 py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between">
         {/* Left Side: Brand Logo (Official Client Logo Asset) */}
         <Link
           href="/"
-          className="group flex items-center px-3 py-1.5 transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="group flex items-center px-2 py-1 transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0"
           aria-label="QbicTravel Home"
         >
           <Image
             src="/images/brand/qbic-logo-2.png"
             alt="QbicTravel Logo"
-            width={150}
-            height={80}
+            width={200}
+            height={90}
             priority
-            className="h-15 sm:h-15 w-auto object-contain"
+            className="h-12 sm:h-14 w-auto object-contain"
           />
         </Link>
 
-        {/* Center: Desktop Navigation */}
+        {/* Desktop Navigation (Visible on Desktop 1024px+ and 1440px+) */}
         <nav
-          className="hidden md:flex items-center gap-6 lg:gap-8"
+          className="hidden min-[992px]:flex items-center gap-5 lg:gap-6 xl:gap-8 2xl:gap-10"
           aria-label="Primary Navigation"
         >
           {NAV_ITEMS.map((item) => {
-            if (item.isActive) {
+            const active = isItemActive(item);
+            if (active) {
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="relative text-sm font-semibold text-primary py-1 transition-colors hover:text-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  className="relative text-[20px] font-semibold text-primary py-1 transition-colors hover:text-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded drop-shadow-sm"
                 >
                   {item.label}
                   {/* Subtle active underline indicator matching reference */}
@@ -82,7 +151,7 @@ export function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-white/85 hover:text-white py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                className="text-[18px] font-medium text-white/95 hover:text-white py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
               >
                 {item.label}
               </Link>
@@ -90,23 +159,53 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right Side: Search and Menu Actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Search Button */}
-          <button
-            type="button"
-            onClick={() => setIsSearchOpen(true)}
-            className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Open search dialog"
-          >
-            <Search className="w-4 h-4" />
-          </button>
+        {/* Desktop Right Actions: Search icon & Get Started CTA (Hidden by default) */}
+        {showSearchAndCta && (
+          <div className="hidden min-[992px]:flex items-center gap-3 sm:gap-4 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-xs"
+              aria-label="Open search dialog"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+            <Link
+              href="/packages"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-white font-bold text-sm shadow-md shadow-pink-500/25 transition-all duration-200 active:scale-95"
+            >
+              <span>Get Started</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
+
+        {/* Mobile & Tablet Actions: Hamburger Menu */}
+        <div className="flex min-[992px]:hidden items-center gap-2 sm:gap-3 shrink-0">
+          {showSearchAndCta && (
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
+                isSolidMode || isScrolled
+                  ? "bg-white/10 hover:bg-white/20 text-white"
+                  : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
+              }`}
+              aria-label="Open search dialog"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Menu / Hamburger Button */}
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
+              isSolidMode || isScrolled
+                ? "bg-white/10 hover:bg-white/20 text-white"
+                : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
+            }`}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >
@@ -121,49 +220,54 @@ export function Navbar() {
 
       {/* Mobile Drawer Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 rounded-2xl bg-brand-navy/95 backdrop-blur-md border border-white/15 p-5 shadow-2xl text-white animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="min-[992px]:hidden mt-4 rounded-2xl bg-brand-navy/95 backdrop-blur-md border border-white/15 p-5 shadow-2xl text-white animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-white/50 px-2">
               Menu Navigation
             </span>
             <div className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${
-                    item.isActive
-                      ? "bg-primary/15 text-primary font-semibold"
-                      : "text-white/85 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  <span>{item.label}</span>
-                  <ArrowRight className="w-4 h-4 opacity-50" />
-                </Link>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const active = isItemActive(item);
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${
+                      active
+                        ? "bg-primary/15 text-primary font-semibold"
+                        : "text-white/85 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowRight className="w-4 h-4 opacity-50" />
+                  </Link>
+                );
+              })}
             </div>
 
-            <div className="pt-2 border-t border-white/10 mt-2 flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsSearchOpen(true);
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-sm font-medium hover:bg-white/20 transition-colors"
-              >
-                <Search className="w-4 h-4" />
-                <span>Quick Search</span>
-              </button>
-              <Link
-                href="/tours"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center px-4 py-2.5 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:bg-primary-hover transition-colors"
-              >
-                Book Your Next Tour
-              </Link>
-            </div>
+            {showSearchAndCta && (
+              <div className="pt-2 border-t border-white/10 mt-2 flex flex-col gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsSearchOpen(true);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-sm font-medium hover:bg-white/20 transition-colors"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Quick Search</span>
+                </button>
+                <Link
+                  href="/tours"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center px-4 py-2.5 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:bg-primary-hover transition-colors"
+                >
+                  Book Your Next Tour
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

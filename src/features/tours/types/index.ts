@@ -1,5 +1,9 @@
 export type TourDifficulty = "easy" | "moderate" | "challenging" | "expert";
 
+export type TourCategory = "Adventure" | "Cultural" | "Beach" | "Nature";
+
+export type DurationFilterOption = "all" | "1-3" | "4-7" | "8+";
+
 export interface TourItineraryDay {
   day: number;
   title: string;
@@ -38,6 +42,32 @@ export interface Tour {
   upcomingDepartureDates: string[];
 }
 
+export interface TourItem {
+  id: string;
+  slug: string;
+  name: string;
+  location: string;
+  duration: string;
+  durationDays: number;
+  maxGroupSize: string;
+  groupSizeMax: number;
+  rating: number;
+  reviewCount: number;
+  description: string;
+  price: number;
+  currency: string;
+  category: TourCategory;
+  image: string;
+  isFeatured?: boolean;
+}
+
+export interface TourSearchParams {
+  destination?: string;
+  tourType?: string;
+  duration?: DurationFilterOption;
+  category?: string;
+}
+
 export interface TourFilters {
   destinationId?: string;
   durationMin?: number;
@@ -45,4 +75,5 @@ export interface TourFilters {
   priceMin?: number;
   priceMax?: number;
   difficulty?: TourDifficulty;
+  category?: TourCategory;
 }

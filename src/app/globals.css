@@ -411,9 +411,26 @@
   }
 }
 
+
+/* Custom utility to hide scrollbars while preserving scrolling functionality */
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none,
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
   }
   body {
     @apply bg-background text-foreground;

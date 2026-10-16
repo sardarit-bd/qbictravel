@@ -40,6 +40,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/travel-guides",
+        destination: "/travel-tips",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

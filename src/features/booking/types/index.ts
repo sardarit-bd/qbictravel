@@ -30,3 +30,5 @@ export interface Booking {
   createdAt: string;
   updatedAt: string;
 }
+
+export * from "./packages";
