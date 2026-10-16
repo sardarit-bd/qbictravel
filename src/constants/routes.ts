@@ -8,6 +8,14 @@ export const ROUTES = {
     ROOT: "/packages",
     DETAILS: (slugOrId: string) => `/packages/${slugOrId}`,
   },
+  BLOG: {
+    ROOT: "/blog",
+    DETAILS: (slugOrId: string) => `/blog/${slugOrId}`,
+  },
+  TRAVEL_TIPS: {
+    ROOT: "/travel-tips",
+    DETAILS: (slugOrId: string) => `/travel-tips/${slugOrId}`,
+  },
   DESTINATIONS: {
     ROOT: "/destinations",
     DETAILS: (slugOrId: string) => `/destinations/${slugOrId}`,
@@ -30,4 +38,5 @@ export const ROUTES = {
     BOOKINGS: "/profile/bookings",
     SETTINGS: "/profile/settings",
   },
+  CONTACT: "/contact",
 } as const;

@@ -69,7 +69,7 @@ export default async function PackageDetailPage({
 
   return (
     <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-start relative w-full">
-      <Navbar />
+      <Navbar variant="solid" />
 
       <div className="w-full pt-28 pb-16">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">

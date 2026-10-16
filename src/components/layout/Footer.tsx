@@ -102,7 +102,7 @@ const ABOUT_LINKS = [
   { label: "About Us", href: "/#about" },
   { label: "Tours", href: "/tours" },
   { label: "Packages", href: "/tours#packages" },
-  { label: "Travel Guides", href: "/destinations" },
+  { label: "Travel Tips", href: "/travel-tips" },
   { label: "Contact Us", href: "/contact" },
 ];
 

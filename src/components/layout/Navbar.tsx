@@ -17,15 +17,23 @@ const NAV_ITEMS: Omit<NavItem, "isActive">[] = [
   { label: "Tours", href: "/tours" },
   { label: "Packages", href: "/packages" },
   { label: "Blog", href: "/blog" },
-  { label: "Travel Guides", href: "/destinations" },
+  { label: "Travel Tips", href: "/travel-tips" },
   { label: "Contact Us", href: "/contact" },
 ];
 
+export type NavbarVariant = "transparent" | "solid";
+
 export interface NavbarProps {
   showSearchAndCta?: boolean;
+  variant?: NavbarVariant;
+  className?: string;
 }
 
-export function Navbar({ showSearchAndCta = false }: NavbarProps) {
+export function Navbar({
+  showSearchAndCta = false,
+  variant,
+  className = "",
+}: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -42,6 +50,23 @@ export function Navbar({ showSearchAndCta = false }: NavbarProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Determine effective mode: explicit prop takes precedence, then fallback route check
+  const isSolidMode = React.useMemo(() => {
+    if (variant === "solid") return true;
+    if (variant === "transparent") return false;
+    // Route-level fallback for safety
+    if (!pathname) return false;
+    if (pathname === "/travel-tips" || pathname.startsWith("/travel-tips/")) return true;
+    if (
+      pathname.startsWith("/packages/") ||
+      pathname.startsWith("/tours/") ||
+      pathname.startsWith("/blog/")
+    ) {
+      return true;
+    }
+    return false;
+  }, [variant, pathname]);
 
   // Close menus on Escape key
   React.useEffect(() => {
@@ -64,8 +89,8 @@ export function Navbar({ showSearchAndCta = false }: NavbarProps) {
         return pathname === "/packages" || (pathname?.startsWith("/packages/") ?? false);
       if (item.label === "Blog")
         return pathname === "/blog" || pathname?.startsWith("/blog");
-      if (item.label === "Travel Guides")
-        return pathname === "/destinations" || pathname?.startsWith("/destinations");
+      if (item.label === "Travel Tips")
+        return pathname === "/travel-tips" || (pathname?.startsWith("/travel-tips") ?? false);
       if (item.label === "Contact Us") return pathname === "/contact";
       return false;
     },
@@ -74,11 +99,15 @@ export function Navbar({ showSearchAndCta = false }: NavbarProps) {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 w-full transition-colors duration-300 ${
-        isScrolled
-          ? "bg-brand-navy/95 backdrop-blur-md shadow-lg border-b border-white/10"
-          : "bg-transparent border-b border-transparent"
-      }`}
+      className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-300 ${
+        isSolidMode
+          ? isScrolled
+            ? "bg-brand-navy/95 backdrop-blur-md shadow-lg border-b border-white/10"
+            : "bg-brand-navy shadow-md border-b border-white/10"
+          : isScrolled
+            ? "bg-brand-navy/95 backdrop-blur-md shadow-lg border-b border-white/10"
+            : "bg-transparent border-b border-transparent"
+      } ${className}`}
     >
       <div className="max-w-[1440px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16 py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between">
         {/* Left Side: Brand Logo (Official Client Logo Asset) */}
@@ -158,7 +187,7 @@ export function Navbar({ showSearchAndCta = false }: NavbarProps) {
               type="button"
               onClick={() => setIsSearchOpen(true)}
               className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
-                isScrolled
+                isSolidMode || isScrolled
                   ? "bg-white/10 hover:bg-white/20 text-white"
                   : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
               }`}
@@ -173,7 +202,7 @@ export function Navbar({ showSearchAndCta = false }: NavbarProps) {
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
-              isScrolled
+              isSolidMode || isScrolled
                 ? "bg-white/10 hover:bg-white/20 text-white"
                 : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
             }`}

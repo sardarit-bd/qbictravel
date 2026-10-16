@@ -58,7 +58,9 @@ export interface TravelPricingSectionProps {
  * Feature Icon renderer consuming brand primary tokens
  */
 function FeatureIcon({ type }: { type: FeatureIconType }) {
-  const iconProps = { className: "w-2.5 h-2.5 text-primary shrink-0 stroke-[2.2]" };
+  const iconProps = {
+    className: "w-2.5 h-2.5 text-primary shrink-0 stroke-[2.2]",
+  };
   switch (type) {
     case "days":
       return <Calendar {...iconProps} />;
@@ -100,7 +102,8 @@ export function TravelPricingSection({
         price: "$499",
         billingLabel: "/ Per Person",
         image: assets.packages.basic,
-        imageAlt: "Tropical coastline and turquoise waters for basic travel package",
+        imageAlt:
+          "Tropical coastline and turquoise waters for basic travel package",
         features: [
           { icon: "days", label: "3 Days" },
           { icon: "nights", label: "2 Nights" },
@@ -130,7 +133,8 @@ export function TravelPricingSection({
         price: "$1499",
         billingLabel: "/ Per Person",
         image: assets.packages.premium,
-        imageAlt: "Snow-capped alpine mountain range for premium travel package",
+        imageAlt:
+          "Snow-capped alpine mountain range for premium travel package",
         features: [
           { icon: "days", label: "7 Days" },
           { icon: "nights", label: "6 Nights" },
@@ -140,7 +144,7 @@ export function TravelPricingSection({
         ],
       },
     ],
-    [assets]
+    [assets],
   );
 
   return (
