@@ -16,6 +16,11 @@ export const siteConfig = {
     supportEmail: "support@qbictravel.com",
     phone: "+1 (800) 555-0199",
   },
+  media: {
+    heroVideoUrl:
+      "https://res.cloudinary.com/dg83pvgls/video/upload/v1792153468/Thailand_By_Drone_-_Phuket_Phi_Phi_Islands_Krabi_-_4K_Travel_Video_1080p_rmzlup.mp4",
+    heroPosterImage: "/images/contact/contact-hero.jpg",
+  },
 } as const;
 
 export type SiteConfig = typeof siteConfig;
