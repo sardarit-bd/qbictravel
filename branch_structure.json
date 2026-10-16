@@ -2,17 +2,20 @@
   "default_branch": "main",
   "branches": [
     "dev-v1",
+    "dev-v2",
     "main",
     "origin"
   ],
   "parent": {
     "dev-v1": "main",
+    "dev-v2": "main",
     "main": null,
     "origin": "main"
   },
   "order": [
     "main",
     "dev-v1",
+    "dev-v2",
     "origin"
   ]
 }
