@@ -13,7 +13,6 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import DriftWall, { DriftWallItem } from "@/components/DriftWall";
 
 /**

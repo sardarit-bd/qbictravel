@@ -17,3 +17,5 @@ export const createBookingSchema = z.object({
 
 export type PassengerInput = z.infer<typeof passengerSchema>;
 export type CreateBookingInput = z.infer<typeof createBookingSchema>;
+
+export * from "./packageSchema";

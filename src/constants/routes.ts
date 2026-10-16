@@ -4,6 +4,10 @@ export const ROUTES = {
     ROOT: "/tours",
     DETAILS: (slugOrId: string) => `/tours/${slugOrId}`,
   },
+  PACKAGES: {
+    ROOT: "/packages",
+    DETAILS: (slugOrId: string) => `/packages/${slugOrId}`,
+  },
   DESTINATIONS: {
     ROOT: "/destinations",
     DETAILS: (slugOrId: string) => `/destinations/${slugOrId}`,

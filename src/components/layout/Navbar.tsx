@@ -15,13 +15,17 @@ export interface NavItem {
 const NAV_ITEMS: Omit<NavItem, "isActive">[] = [
   { label: "Home", href: "/" },
   { label: "Tours", href: "/tours" },
-  { label: "Packages", href: "/tours#packages" },
+  { label: "Packages", href: "/packages" },
   { label: "Blog", href: "/blog" },
   { label: "Travel Guides", href: "/destinations" },
   { label: "Contact Us", href: "/contact" },
 ];
 
-export function Navbar() {
+export interface NavbarProps {
+  showSearchAndCta?: boolean;
+}
+
+export function Navbar({ showSearchAndCta = false }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -55,8 +59,9 @@ export function Navbar() {
     (item: (typeof NAV_ITEMS)[number]) => {
       if (item.label === "Home") return pathname === "/";
       if (item.label === "Tours")
-        return pathname === "/tours" || pathname?.startsWith("/tours");
-      if (item.label === "Packages") return pathname === "/packages";
+        return pathname === "/tours" || (pathname?.startsWith("/tours/") ?? false);
+      if (item.label === "Packages")
+        return pathname === "/packages" || (pathname?.startsWith("/packages/") ?? false);
       if (item.label === "Blog")
         return pathname === "/blog" || pathname?.startsWith("/blog");
       if (item.label === "Travel Guides")
@@ -125,21 +130,43 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Mobile & Tablet Actions: Search and Hamburger Menu (Hidden on Desktop 1024px+) */}
+        {/* Desktop Right Actions: Search icon & Get Started CTA (Hidden by default) */}
+        {showSearchAndCta && (
+          <div className="hidden min-[992px]:flex items-center gap-3 sm:gap-4 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-xs"
+              aria-label="Open search dialog"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+            <Link
+              href="/packages"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-white font-bold text-sm shadow-md shadow-pink-500/25 transition-all duration-200 active:scale-95"
+            >
+              <span>Get Started</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
+
+        {/* Mobile & Tablet Actions: Hamburger Menu */}
         <div className="flex min-[992px]:hidden items-center gap-2 sm:gap-3 shrink-0">
-          {/* Search Button */}
-          <button
-            type="button"
-            onClick={() => setIsSearchOpen(true)}
-            className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
-              isScrolled
-                ? "bg-white/10 hover:bg-white/20 text-white"
-                : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
-            }`}
-            aria-label="Open search dialog"
-          >
-            <Search className="w-4 h-4" />
-          </button>
+          {showSearchAndCta && (
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm ${
+                isScrolled
+                  ? "bg-white/10 hover:bg-white/20 text-white"
+                  : "bg-black/35 hover:bg-black/50 text-white backdrop-blur-sm"
+              }`}
+              aria-label="Open search dialog"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Menu / Hamburger Button */}
           <button
@@ -190,26 +217,28 @@ export function Navbar() {
               })}
             </div>
 
-            <div className="pt-2 border-t border-white/10 mt-2 flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsSearchOpen(true);
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-sm font-medium hover:bg-white/20 transition-colors"
-              >
-                <Search className="w-4 h-4" />
-                <span>Quick Search</span>
-              </button>
-              <Link
-                href="/tours"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center px-4 py-2.5 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:bg-primary-hover transition-colors"
-              >
-                Book Your Next Tour
-              </Link>
-            </div>
+            {showSearchAndCta && (
+              <div className="pt-2 border-t border-white/10 mt-2 flex flex-col gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsSearchOpen(true);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-sm font-medium hover:bg-white/20 transition-colors"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Quick Search</span>
+                </button>
+                <Link
+                  href="/tours"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center px-4 py-2.5 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:bg-primary-hover transition-colors"
+                >
+                  Book Your Next Tour
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

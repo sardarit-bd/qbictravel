@@ -4,7 +4,7 @@ import * as React from "react";
 import { SearchX, RotateCcw } from "lucide-react";
 import { TourCard } from "./TourCard";
 import { TourCategoryFilters } from "./TourCategoryFilters";
-import { TourItem, DurationFilterOption } from "@/features/tours/types";
+import { TourItem } from "@/features/tours/types";
 import { TourSearchParamsState } from "./TourSearchBar";
 import { cn } from "@/lib/utils";
 

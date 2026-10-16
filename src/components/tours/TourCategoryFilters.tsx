@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Compass, Landmark, Palmtree, Leaf, Sparkles } from "lucide-react";
+import { Compass, Landmark, Palmtree, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface CategoryFilterItem {

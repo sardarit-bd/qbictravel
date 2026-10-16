@@ -10,6 +10,12 @@ interface TourDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export function generateStaticParams() {
+  return DEMO_TOURS.map((tour) => ({
+    slug: tour.slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: TourDetailPageProps): Promise<Metadata> {
